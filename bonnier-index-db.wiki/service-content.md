@@ -12,11 +12,11 @@ Service for creating and retriving content.
 
 ## Parameters
 
-https://github.com/BenjaminMedia/bonnier-index-db/wiki/service-content-parameters
+https://github.com/BenjaminMedia/app-wiki/blob/master/bonnier-index-db.wiki/service-content-parameters.md
 
 ## Fields
 
-https://github.com/BenjaminMedia/bonnier-index-db/wiki/service-content-fields
+https://github.com/BenjaminMedia/app-wiki/blob/master/bonnier-index-db.wiki/service-content-fields.md
 
 ## <a name="/get/api/content"></a> GET /api/content
 Returns a list of latest items.
