@@ -27,7 +27,7 @@ https://github.com/BenjaminMedia/bonnier-index-db/wiki/Administration#developer_
 ### <a name="parameter_site_code"></a> site_code
 Returns result that matches specified site code. 
 
-For multiple matches, please seperate the value with ",".
+For multiple matches, please separate the value with ",".
 
 ###### Example
 site_code=cd_ark
@@ -39,7 +39,7 @@ site_code=ifo,ilvid
 ### <a name="parameter_app_code"></a> app_code
 Returns result that matches specified app code. 
 
-For multiple matches, please seperate the value with ",".
+For multiple matches, please separate the value with ",".
 
 ###### Example
 app_code=ifo
@@ -51,7 +51,7 @@ app_code=ifo,ilvid
 ### <a name="parameter_filter"></a> filter
 Filter results by given value. 
 
-For multiple matches, please seperate the value with ",".
+For multiple matches, please separate the value with ",".
 
 ###### Example
 content_type=page
@@ -63,7 +63,7 @@ content_type=page,article
 ### <a name="parameter_meta"></a> meta
 Filter meta items by given value. 
 
-For multiple matches, please seperate the value with ",".
+For multiple matches, please separate the value with ",".
 
 ###### Example
 meta=product.color:blue
@@ -116,7 +116,7 @@ null
 null
 
 ###### Example
-order=asc
+skip=10
 
 -
 

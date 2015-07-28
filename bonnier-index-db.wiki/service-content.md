@@ -1,6 +1,6 @@
 # api/content
 
-Service for creating and retriving content.
+Service for creating and retrieving content.
 
 |Action|Path|Example|Description|
 |---|---|---|---|
