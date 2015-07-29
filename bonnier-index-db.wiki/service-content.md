@@ -26,7 +26,7 @@ Returns a list of latest items.
 ###### Request
 
 ```
-curl -H "Auth-Secret: [SECRET]" https://staging-indexdb.whitealbum.dk/api/content
+curl -H "Auth-Secret: [SECRET]" https://indexdb.whitealbum.dk/api/v1/content
 ```
 
 ###### Response
@@ -123,7 +123,7 @@ curl -H "Auth-Secret: [SECRET]" https://staging-indexdb.whitealbum.dk/api/conten
 ###### Request
 
 ```php
-$ch = curl_init('https://staging-indexdb.whitealbum.dk/api/content');
+$ch = curl_init('https://indexdb.whitealbum.dk/api/v1/content');
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Auth-Secret: [SECRET]'));
@@ -298,7 +298,7 @@ Creates a new item of the given type and returns the id for the newly created it
 ###### Request
 
 ```
-curl -H "Auth-Secret: [SECRET]" -X POST -d "locale=da-dk&title=My title&image=http://bonnier.imgix.net/ted-12-Dz6yqo0rVNdE8BQQjlKNYQ.png&content_type=article&publish_at=25-04-2015 15:15&created_at=26-04-2015 15:20&updated_at=27-04-2015 15:30&path=/path&active=true&content_url=http://mmm.dk/konkurrencer/vind-en-ted-bamse-to-billetter-til-ted-2" http://staging-indexdb.whitealbum.dk/api/content
+curl -H "Auth-Secret: [SECRET]" -X POST -d "locale=da-dk&title=My title&image=http://bonnier.imgix.net/ted-12-Dz6yqo0rVNdE8BQQjlKNYQ.png&content_type=article&publish_at=25-04-2015 15:15&created_at=26-04-2015 15:20&updated_at=27-04-2015 15:30&path=/path&active=true&content_url=http://mmm.dk/konkurrencer/vind-en-ted-bamse-to-billetter-til-ted-2" http://indexdb.whitealbum.dk/api/v1/content
 ```
 
 ###### Response
@@ -351,7 +351,7 @@ curl -H "Auth-Secret: [SECRET]" -X POST -d "locale=da-dk&title=My title&image=ht
 ```php
 $data = array('title' => 'My title', 'locale' => 'da-dk', 'content_url' => 'http://mmm.dk/konkurrencer/vind-en-ted-bamse-to-billetter-til-ted-2', 'image' => 'http://bonnier.imgix.net/ted-12-Dz6yqo0rVNdE8BQQjlKNYQ.png', 'content_type' => 'article', '', 'publish_at' => '25-04-2015 15:15', 'created_at' => '26-04-2015 15:20', 'updated_at' => '27-04-2015 15:30', 'path' => '/path', 'active' => TRUE);
 
-$ch = curl_init('http://staging-indexdb.whitealbum.dk/api/content');
+$ch = curl_init('http://indexdb.whitealbum.dk/api/v1/content');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 curl_setopt($ch, CURLOPT_POST, TRUE);
 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
@@ -443,7 +443,7 @@ Returns type with matching id
 ###### Request
 
 ```
-curl -H "Auth-Secret: [SECRET]" https://staging-indexdb.whitealbum.dk/api/content/472411B3EEE17052A861D1C34DF9C646
+curl -H "Auth-Secret: [SECRET]" https://indexdb.whitealbum.dk/api/v1/content/472411B3EEE17052A861D1C34DF9C646
 ```
 
 ###### Response
@@ -494,7 +494,7 @@ curl -H "Auth-Secret: [SECRET]" https://staging-indexdb.whitealbum.dk/api/conten
 ###### Request
 
 ```php
-$ch = curl_init('https://staging-indexdb.whitealbum.dk/api/content/472411B3EEE17052A861D1C34DF9C646');
+$ch = curl_init('https://indexdb.whitealbum.dk/api/v1/content/472411B3EEE17052A861D1C34DF9C646');
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Auth-Secret: [SECRET]'));
@@ -583,7 +583,7 @@ Update item of type with the given id
 
 ###### Request
 ```
-curl -H "Auth-Secret: [SECRET]" -X POST -d "_method=PUT&title=My new title&description=My new description" https://staging-indexdb.whitealbum.dk/api/content/C36AF818BE94E41C1F2C52133BF85F33
+curl -H "Auth-Secret: [SECRET]" -X POST -d "_method=PUT&title=My new title&description=My new description" https://indexdb.whitealbum.dk/api/v1/content/C36AF818BE94E41C1F2C52133BF85F33
 ```
 
 ###### Response
@@ -633,7 +633,7 @@ curl -H "Auth-Secret: [SECRET]" -X POST -d "_method=PUT&title=My new title&descr
 ###### Request
 
 ```php
-$ch = curl_init('https://staging-indexdb.whitealbum.dk/api/content/5DD845435D7B8BF6E9CDD6094BC79CF3');
+$ch = curl_init('https://indexdb.whitealbum.dk/api/v1/content/5DD845435D7B8BF6E9CDD6094BC79CF3');
 
 $data = array('_method' => 'PUT', 'title' => 'My new title', 'description' => 'My new description');
 
@@ -727,7 +727,7 @@ Delete content with the matching id
 ###### Request
 
 ```
-curl -H "Auth-Secret: [SECRET]" -X POST -d "&_method=delete" https://staging-indexdb.whitealbum.dk/api/content/C36AF818BE94E41C1F2C52133BF85F33
+curl -H "Auth-Secret: [SECRET]" -X POST -d "&_method=delete" https://indexdb.whitealbum.dk/api/v1/content/C36AF818BE94E41C1F2C52133BF85F33
 ```
 
 ###### Response
@@ -744,7 +744,7 @@ curl -H "Auth-Secret: [SECRET]" -X POST -d "&_method=delete" https://staging-ind
 ###### Request
 
 ```php
-$ch = curl_init('https://staging-indexdb.whitealbum.dk/api/content/0F18B76A2294449455595381FC49D092');
+$ch = curl_init('https://indexdb.whitealbum.dk/api/v1/content/0F18B76A2294449455595381FC49D092');
 
 $data = array('_method' => 'DELETE');
 
