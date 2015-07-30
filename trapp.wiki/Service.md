@@ -12,11 +12,11 @@ Service for creating and retrieving translations.
 
 ## Parameters
 
-https://github.com/BenjaminMedia/app-wiki/blob/master/bonnier-index-db.wiki/service-content-parameters.md
+https://github.com/BenjaminMedia/app-wiki/blob/master/trapp.wiki/service-content-parameters.md
 
 ## Fields
 
-https://github.com/BenjaminMedia/app-wiki/blob/master/bonnier-index-db.wiki/service-content-fields.md
+https://github.com/BenjaminMedia/app-wiki/blob/master/trapp.wiki/service-content-fields.md
 
 ## <a name="/get/api/entity"></a> GET /api/v1/entity
 Returns a list of latest translations.
