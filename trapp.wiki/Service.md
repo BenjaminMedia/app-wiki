@@ -3272,7 +3272,7 @@ curl -H "Auth-Secret: [SECRET]" https://trapp.whitealbum.dk/api/v1/translation/5
 ###### Request
 
 ```php
-$ch = curl_init('https://staging-indexdb.whitealbum.dk/api/content/472411B3EEE17052A861D1C34DF9C646');
+$ch = curl_init('https://traoo.whitealbum.dk/api/v1/translation/472411B3EEE17052A861D1C34DF9C646');
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Auth-Secret: [SECRET]'));
@@ -3588,7 +3588,7 @@ curl -H "Auth-Secret: [SECRET]" -X POST -d "_method=PUT&title=My new title&descr
 ###### Request
 
 ```php
-$ch = curl_init('https://staging-indexdb.whitealbum.dk/api/content/5DD845435D7B8BF6E9CDD6094BC79CF3');
+$ch = curl_init('https://trapp.whitealbum.dk/api/v1/translation/5DD845435D7B8BF6E9CDD6094BC79CF3');
 
 $data = array('_method' => 'PUT', 'title' => 'My new title', 'description' => 'My new description');
 
@@ -3606,7 +3606,7 @@ $response = json_decode(curl_exec($ch));
 RESPONSE
 ```
 
-## <a name="/delete/api/entity/id"></a> DELETE /api/v1/entity/[id]
+## <a name="/delete/api/translation/id"></a> DELETE /api/v1/translation/[id]
 Delete translation with the matching id
 
 ### CURL
@@ -3614,7 +3614,7 @@ Delete translation with the matching id
 ###### Request
 
 ```
-curl -H "Auth-Secret: [SECRET]" -X POST -d "&_method=delete" https://trapp.whitealbum.dk/api/v1/entity/C36AF818BE94E41C1F2C52133BF85F33
+curl -H "Auth-Secret: [SECRET]" -X POST -d "&_method=delete" https://trapp.whitealbum.dk/api/v1/translation/C36AF818BE94E41C1F2C52133BF85F33
 ```
 
 ###### Response
