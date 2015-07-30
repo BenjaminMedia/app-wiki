@@ -4,11 +4,11 @@ Service for creating and retrieving translations.
 
 |Action|Path|Example|Description|
 |---|---|---|---|
-|GET|[/api/v1/entity](#/get/api/entity)|/api/v1/entity|Returns a list of latest translations.|
-|POST|[/api/v1/entity](#/post/api/entity)|/api/v1/entity|Create new translation and returns the id for the new item.|
-|GET|[/api/v1/entity/[id]](#/get/api/entity/id)|/api/v1/entity/100|Returns translation with matching id|
-|DELETE|[/api/v1/entity/[id]](#/delete/api/entity/id)|/api/v1/entity/100|Delete translation with the matching id|
-|PUT|[/api/v1/entity/[id]](#/put/api/entity/id)|/api/v1/entity/100|Update translation with the matching id|
+|GET|[/api/v1/translation](#/get/api/translation)|/api/v1/translation|Returns a list of latest translations.|
+|POST|[/api/v1/translation](#/post/api/translation)|/api/v1/translation|Create new translation and returns the id for the new item.|
+|GET|[/api/v1/translation/[id]](#/get/api/translation/id)|/api/v1/translation/100|Returns translation with matching id|
+|DELETE|[/api/v1/translation/[id]](#/delete/api/translation/id)|/api/v1/translation/100|Delete translation with the matching id|
+|PUT|[/api/v1/translation/[id]](#/put/api/translation/id)|/api/v1/translation/100|Update translation with the matching id|
 
 ## Parameters
 
@@ -18,7 +18,7 @@ https://github.com/BenjaminMedia/app-wiki/blob/master/trapp.wiki/Parameters.md
 
 https://github.com/BenjaminMedia/app-wiki/blob/master/trapp.wiki/Fields.md
 
-## <a name="/get/api/entity"></a> GET /api/v1/entity
+## <a name="/get/api/translation"></a> GET /api/v1/translation
 Returns a list of latest translations.
 
 ### CURL
@@ -26,7 +26,7 @@ Returns a list of latest translations.
 ###### Request
 
 ```
-curl -H "Auth-Secret: [SECRET]" https://trapp.whitealbum.dk/api/v1/entity
+curl -H "Auth-Secret: [SECRET]" https://trapp.whitealbum.dk/api/v1/translation
 ```
 
 ###### Response
@@ -2935,7 +2935,7 @@ curl -H "Auth-Secret: [SECRET]" https://trapp.whitealbum.dk/api/v1/entity
 ###### Request
 
 ```php
-$ch = curl_init('https://staging-indexdb.whitealbum.dk/api/content');
+$ch = curl_init('https://trapp.whitealbum.dk/api/v1/translation');
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Auth-Secret: [SECRET]'));
@@ -2949,7 +2949,7 @@ $response = json_decode(curl_exec($ch));
 RESPONSE
 ```
 
-## <a name="/post/api/entity"></a> POST /api/v1/entity
+## <a name="/post/api/translation"></a> POST /api/v1/translation
 
 Creates a new translation of the given type and returns the id for the newly created item.
 
@@ -2958,7 +2958,7 @@ Creates a new translation of the given type and returns the id for the newly cre
 ###### Request
 
 ```
-curl -H "Auth-Secret: [SECRET]" -X POST -d "locale=da-dk&title=My title&image=http://bonnier.imgix.net/ted-12-Dz6yqo0rVNdE8BQQjlKNYQ.png&content_type=article&publish_at=25-04-2015 15:15&created_at=26-04-2015 15:20&updated_at=27-04-2015 15:30&path=/path&active=true&content_url=http://mmm.dk/konkurrencer/vind-en-ted-bamse-to-billetter-til-ted-2" http://staging-indexdb.whitealbum.dk/api/content
+curl -H "Auth-Secret: [SECRET]" -X POST -d "locale=da-dk&title=My title&image=http://bonnier.imgix.net/ted-12-Dz6yqo0rVNdE8BQQjlKNYQ.png&content_type=article&publish_at=25-04-2015 15:15&created_at=26-04-2015 15:20&updated_at=27-04-2015 15:30&path=/path&active=true&content_url=http://mmm.dk/konkurrencer/vind-en-ted-bamse-to-billetter-til-ted-2" http://trapp.whitealbum.dk/api/v1/translation
 ```
 
 ###### Response
@@ -2967,7 +2967,7 @@ curl -H "Auth-Secret: [SECRET]" -X POST -d "locale=da-dk&title=My title&image=ht
 RESPONSE
 ```
 
-## <a name="/get/api/entity/id"></a> GET /api/v1/entity/[id]
+## <a name="/get/api/translation/id"></a> GET /api/v1/translation/[id]
 
 Returns translation with matching id
 
@@ -2976,7 +2976,7 @@ Returns translation with matching id
 ###### Request
 
 ```
-curl -H "Auth-Secret: [SECRET]" https://trapp.whitealbum.dk/api/v1/entity/55b8f5b2214f48da0900421f
+curl -H "Auth-Secret: [SECRET]" https://trapp.whitealbum.dk/api/v1/translation/55b8f5b2214f48da0900421f
 ```
 
 ###### Response
@@ -3286,14 +3286,14 @@ $response = json_decode(curl_exec($ch));
 RESPONSE
 ```
 
-## <a name="/put/api/entity/id"></a> PUT /api/v1/entity/[id]
+## <a name="/put/api/translation/id"></a> PUT /api/v1/translation/[id]
 Update item of type with the given id 
 
 ### CURL
 
 ###### Request
 ```
-curl -H "Auth-Secret: [SECRET]" -X POST -d "_method=PUT&title=My new title&description=My new description" https://staging-indexdb.whitealbum.dk/api/content/C36AF818BE94E41C1F2C52133BF85F33
+curl -H "Auth-Secret: [SECRET]" -X POST -d "_method=PUT&title=My new title&description=My new description" https://trapp.whitealbum.dk/api/v1/translation/C36AF818BE94E41C1F2C52133BF85F33
 ```
 
 ###### Response
@@ -3628,7 +3628,7 @@ RESPONSE
 ###### Request
 
 ```php
-$ch = curl_init('https://trapp.whitealbum.dk/api/v1/entity/0F18B76A2294449455595381FC49D092');
+$ch = curl_init('https://trapp.whitealbum.dk/api/v1/translation/0F18B76A2294449455595381FC49D092');
 
 $data = array('_method' => 'DELETE');
 
