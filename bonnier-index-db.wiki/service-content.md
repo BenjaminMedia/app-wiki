@@ -298,7 +298,7 @@ Creates a new item of the given type and returns the id for the newly created it
 ###### Request
 
 ```
-curl -H "Auth-Secret: [SECRET]" -X POST -d "locale=da-dk&title=My title&image=http://bonnier.imgix.net/ted-12-Dz6yqo0rVNdE8BQQjlKNYQ.png&content_type=article&publish_at=25-04-2015 15:15&created_at=26-04-2015 15:20&updated_at=27-04-2015 15:30&path=/path&active=true&content_url=http://mmm.dk/konkurrencer/vind-en-ted-bamse-to-billetter-til-ted-2" http://indexdb.whitealbum.dk/api/v1/content
+curl -H "Auth-Secret: [SECRET]" -X POST -d "locale=da-dk&title=My title&image=http://bonnier.imgix.net/ted-12-Dz6yqo0rVNdE8BQQjlKNYQ.png&content_type=article&publish_at=25-04-2015 15:15&created_at=26-04-2015 15:20&updated_at=27-04-2015 15:30&active=true&content_url=http://mmm.dk/konkurrencer/vind-en-ted-bamse-to-billetter-til-ted-2" http://indexdb.whitealbum.dk/api/v1/content
 ```
 
 ###### Response
@@ -349,7 +349,7 @@ curl -H "Auth-Secret: [SECRET]" -X POST -d "locale=da-dk&title=My title&image=ht
 ###### Request
 
 ```php
-$data = array('title' => 'My title', 'locale' => 'da-dk', 'content_url' => 'http://mmm.dk/konkurrencer/vind-en-ted-bamse-to-billetter-til-ted-2', 'image' => 'http://bonnier.imgix.net/ted-12-Dz6yqo0rVNdE8BQQjlKNYQ.png', 'content_type' => 'article', '', 'publish_at' => '25-04-2015 15:15', 'created_at' => '26-04-2015 15:20', 'updated_at' => '27-04-2015 15:30', 'path' => '/path', 'active' => TRUE);
+$data = array('title' => 'My title', 'locale' => 'da-dk', 'content_url' => 'http://mmm.dk/konkurrencer/vind-en-ted-bamse-to-billetter-til-ted-2', 'image' => 'http://bonnier.imgix.net/ted-12-Dz6yqo0rVNdE8BQQjlKNYQ.png', 'content_type' => 'article', '', 'publish_at' => '25-04-2015 15:15', 'created_at' => '26-04-2015 15:20', 'updated_at' => '27-04-2015 15:30', 'active' => TRUE);
 
 $ch = curl_init('http://indexdb.whitealbum.dk/api/v1/content');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);

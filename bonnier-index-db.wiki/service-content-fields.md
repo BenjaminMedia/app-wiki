@@ -8,7 +8,7 @@ The API multiple types of items. Each type can have a different set of fields. I
 |[title](#content_title)|string|true|
 |[description](#content_description)|text|false|
 |[content_type](#content_content_type)|string|true|
-|[image](#content_image)|string|true|
+|[image](#content_image)|string|false|
 |[publish_at](#content_publish_at)|datetime|false|
 |[created_at](#content_created_at)|datetime|true|
 |[updated_at](#content_updated_at)|datetime|true|
@@ -25,8 +25,8 @@ Locale code for the content.
 string
 
 ###### Example
-da-dk
-en-gb
+da_dk
+en\_gb
 
 ###### Requred
 True
