@@ -289,7 +289,7 @@ object(stdClass)#17 (5) {
 }
 ```
 
-## <a name="/post/api/content"></a> POST /api/content
+## <a name="/post/api/content"></a> POST /api/v1/content
 
 Creates a new item of the given type and returns the id for the newly created item.
 
@@ -434,7 +434,7 @@ object(stdClass)#17 (15) {
 }
 ```
 
-## <a name="/get/api/content/id"></a> GET /api/content/[id]
+## <a name="/get/api/content/id"></a> GET /api/v1/content/[id]
 
 Returns type with matching id
 
@@ -576,7 +576,7 @@ object(stdClass)#17 (15) {
 }
 ```
 
-## <a name="/put/api/content/id"></a> PUT /api/content/[id]
+## <a name="/put/api/content/id"></a> PUT /api/v1/content/[id]
 Update item of type with the given id 
 
 ### CURL
@@ -719,7 +719,7 @@ object(stdClass)#17 (15) {
 }
 ```
 
-## <a name="/delete/api/content/id"></a> DELETE /api/content/[id]
+## <a name="/delete/api/content/id"></a> DELETE /api/v1/content/[id]
 Delete content with the matching id
 
 ### CURL
