@@ -4,7 +4,7 @@ In this section you can see what fields are supported and read more about them.
 |Name|Type|Required|
 |---|---|---|
 |[locale](#locale)|string|true|
-|[translate_into](#translate_into)|string|true|
+|[translate_into](#translate_into)|array|true|
 |[deadline](#deadline)|datetime|true|
 |[fields](#fields)|object|true|
 |[comment](#comment)|string|false|
@@ -28,10 +28,10 @@ True
 -
 
 ### <a name="translate_into"></a> translate_into
-Locale code that you want the content to be translated to
+Locale codes you want the content to be translated to
 
 ###### Type
-string
+array
 
 ###### Example
 da_dk 
