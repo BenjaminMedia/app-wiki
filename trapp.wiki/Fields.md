@@ -23,7 +23,7 @@ string
 da_dk
 en\_gb
 
-###### Requred
+###### Required
 True
 
 -
@@ -38,7 +38,7 @@ array
 da_dk 
 en\_gb
 
-###### Requred
+###### Required
 True
 
 -
@@ -52,7 +52,7 @@ datetime (WC3)
 ###### Example
 2005-08-15T15:52:01+00:00
 
-###### Requred
+###### Required
 True
 
 -
@@ -74,7 +74,7 @@ object
 ###### Example
 { "label": "Test", "value": "My text in the original language", "displayFormat": "wysiwyg" }
 
-###### Requred
+###### Required
 True
 
 -
@@ -88,7 +88,7 @@ string
 ###### Example
 Please remember to translate the image-text.
 
-###### Requred
+###### Required
 False
 
 -
@@ -102,7 +102,7 @@ string
 ###### Example
 asda28391238asdasdasd
 
-###### Requred
+###### Required
 False
 
 -
@@ -116,5 +116,5 @@ string
 ###### Example
 Science fiction bliver til virkelighed
 
-###### Requred
+###### Required
 True
