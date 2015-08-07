@@ -9,6 +9,7 @@ In this section you can see what fields are supported and read more about them.
 |[fields](#fields)|object|true|
 |[comment](#comment)|string|false|
 |[state](#state)|string|false|
+|[title](#title)|string|true|
 
 -
 
@@ -103,3 +104,17 @@ asda28391238asdasdasd
 
 ###### Requred
 False
+
+-
+
+### <a name="title"></a> title
+Title in the original language of the content, will be displayed on lists
+
+###### Type
+string
+
+###### Example
+Science fiction bliver til virkelighed
+
+###### Requred
+True
