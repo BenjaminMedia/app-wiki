@@ -9,7 +9,7 @@ This section contains a walkthrough of the parameters supported by the API for f
 |[order](#parameter_order)|Order results ascending or descending|
 |[locale](#parameter_locale)|Filter the results to only returns items with matching locale(s).|
 |[app_id](#parameter_app_id)|Filter the results to only returns items with matching application id.|
-|[state_id](#parameter_state_id)|Filter results by matching state|
+|[state](#parameter_state)|Filter results by matching state|
 |[q](#parameter_q)|Filters results where meta-data contains the specified value|
 |[skip](#parameter_skip)|Skips the entered amount of rows in the result (useful for paging).|
 |[limit](#parameter_limit)|Limits the number of rows returned in the result. code|
@@ -76,7 +76,7 @@ app_id=1
 
 -
 
-### <a name="parameter_state_id"></a> q
+### <a name="parameter_state"></a> q
 Filter results by matching state
 
 Value must contain valid and supported state.
@@ -84,13 +84,13 @@ Value must contain valid and supported state.
 For multiple matches, please separate the value with ",".
 
 ###### Values
-int
+string
 null
 
 ###### Example
-state=15,20
+state=translated,waiting
 
-state=15
+state=translated
 
 -
 
