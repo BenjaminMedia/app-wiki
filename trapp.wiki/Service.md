@@ -512,8 +512,8 @@ $response = json_decode(curl_exec($ch));
 
 ```json
 {
-total: 4,
-rows: [
+"total": 4,
+"rows": [
 	"state-waiting",
 	"state-missing",
 	"state-progress",
@@ -554,43 +554,43 @@ $response = json_decode(curl_exec($ch));
 
 ```json
 {
-total: 4,
-rows: [
+"total": 4,
+"rows": [
 		{
-		_id: "55f0343345726eb0500041b1",
-		name: "Danish",
-		locale: "da_dk",
-		country: "Denmark"
+		"_id": "55f0343345726eb0500041b1",
+		"name": "Danish",
+		"locale": "da_dk",
+		"country": "Denmark"
 		},
 		{
-		_id: "55f0343345726eb0500041b2",
-		name: "English",
-		locale: "en_gb",
-		country: "United Kingdom"
+		"_id": "55f0343345726eb0500041b2",
+		"name": "English",
+		"locale": "en_gb",
+		"country": "United Kingdom"
 		},
 		{
-		_id: "55f0343345726eb0500041b3",
-		name: "Finnish",
-		locale: "fi_fi",
-		country: "Finland"
+		"_id": "55f0343345726eb0500041b3",
+		"name": "Finnish",
+		"locale": "fi_fi",
+		"country": "Finland"
 		},
 		{
-		_id: "55f0343345726eb0500041b4",
-		name: "Swedish",
-		locale: "sv_se",
-		country: "Sweden"
+		"_id": "55f0343345726eb0500041b4",
+		"name": "Swedish",
+		"locale": "sv_se",
+		"country": "Sweden"
 		},
 		{
-		_id: "55f0343345726eb0500041b5",
-		name: "Norwegian",
-		locale: "nb_no",
-		country: "Norway"
+		"_id": "55f0343345726eb0500041b5",
+		"name": "Norwegian",
+		"locale": "nb_no",
+		"country": "Norway"
 		},
 		{
-		_id: "55f0343345726eb0500041b6",
-		name: "Dutch",
-		locale: "nl_nl",
-		country: "Netherlands"
+		"_id": "55f0343345726eb0500041b6",
+		"name": "Dutch",
+		"locale": "nl_nl",
+		"country": "Netherlands"
 		}
 	]
 }
