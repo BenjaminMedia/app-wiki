@@ -70,7 +70,7 @@ curl -H "Authorization: Basic [TOKEN]" https://trapp.whitealbum.dk/api/v1/transl
 $ch = curl_init('https://trapp.whitealbum.dk/api/v1/translations');
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Basic ' . base64_encode(sprintf('%s:%s', [USERNAME]:[SECRET])));
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Basic ' . base64_encode(sprintf('%s:%s', [USERNAME],[SECRET])));
         
 $response = json_decode(curl_exec($ch));
 
@@ -202,7 +202,7 @@ $data = array('_method' => 'POST', 'locale' => 'da-dk', 'title' => 'My new title
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 curl_setopt($ch, CURLOPT_POST, TRUE);
 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Basic ' . base64_encode(sprintf('%s:%s', [USERNAME]:[SECRET])));
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Basic ' . base64_encode(sprintf('%s:%s', [USERNAME],[SECRET])));
 
 $response = json_decode(curl_exec($ch));
 ```
@@ -233,7 +233,7 @@ curl -H "Authorization: Basic [TOKEN]" https://trapp.whitealbum.dk/api/v1/transl
 $ch = curl_init('https://traoo.whitealbum.dk/api/v1/translations/472411B3EEE17052A861D1C34DF9C646');
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Basic ' . base64_encode(sprintf('%s:%s', [USERNAME]:[SECRET])));
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Basic ' . base64_encode(sprintf('%s:%s', [USERNAME],[SECRET])));
         
 $response = json_decode(curl_exec($ch));
 ```
@@ -350,7 +350,7 @@ $data = array('_method' => 'PUT', 'title' => 'My new title', 'description' => 'M
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 curl_setopt($ch, CURLOPT_POST, TRUE);
 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Basic ' . base64_encode(sprintf('%s:%s', [USERNAME]:[SECRET])));
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Basic ' . base64_encode(sprintf('%s:%s', [USERNAME],[SECRET])));
 
 $response = json_decode(curl_exec($ch));
 ```
@@ -464,7 +464,7 @@ $ch = curl_init('https://trapp.whitealbum.dk/api/v1/translations/0F18B76A2294449
 $data = array('_method' => 'DELETE');
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Basic ' . base64_encode(sprintf('%s:%s', [USERNAME]:[SECRET])));
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Basic ' . base64_encode(sprintf('%s:%s', [USERNAME],[SECRET])));
 curl_setopt($ch, CURLOPT_POST, TRUE);
 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
 
@@ -501,7 +501,7 @@ $ch = curl_init('https://trapp.whitealbum.dk/api/v1/translations/0F18B76A2294449
 $data = array('_method' => 'DELETE');
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Basic ' . base64_encode(sprintf('%s:%s', [USERNAME]:[SECRET])));
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Basic ' . base64_encode(sprintf('%s:%s', [USERNAME],[SECRET])));
 curl_setopt($ch, CURLOPT_POST, TRUE);
 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
 
@@ -543,7 +543,7 @@ $ch = curl_init('https://trapp.whitealbum.dk/api/v1/translations/0F18B76A2294449
 $data = array('_method' => 'DELETE');
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Basic ' . base64_encode(sprintf('%s:%s', [USERNAME]:[SECRET])));
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Basic ' . base64_encode(sprintf('%s:%s', [USERNAME],[SECRET])));
 curl_setopt($ch, CURLOPT_POST, TRUE);
 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
 
