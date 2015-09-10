@@ -12,7 +12,9 @@ This section contains a walkthrough of the parameters supported by the API for f
 |[state](#parameter_state)|Filter results by matching state|
 |[q](#parameter_q)|Filters results where meta-data contains the specified value|
 |[skip](#parameter_skip)|Skips the entered amount of rows in the result (useful for paging).|
-|[limit](#parameter_limit)|Limits the number of rows returned in the result. code|
+|[limit](#parameter_limit)|Limits the number of rows returned in the result.|
+|[original](#original)|Filter results by matching id of original translation|
+|[filter_original](#filter_original)|Filter the results to only return original translations without revisions|
 
 -
 
@@ -136,3 +138,31 @@ null
 
 ###### Example
 limit=10
+
+### <a name="original"></a> original
+Filter results by matching id of original translation
+
+###### Values
+string
+null
+
+###### Default
+null
+
+###### Example
+orignal=55b8f5b2214f48da0900421f
+
+
+### <a name="filter_original"></a> filter_original
+Filter the results to not return revisions but only original translations
+
+###### Values
+boolean
+null
+
+###### Default
+false
+
+###### Example
+filter_original=true
+
