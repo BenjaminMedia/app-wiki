@@ -60,7 +60,7 @@ Returns a list of latest translations.
 ###### Request
 
 ```
-curl -H "Authorization: Basic [Base64([USERNAME]:[SECRET])]" https://trapp.whitealbum.dk/api/v1/translations
+curl -H "Authorization: Basic [TOKEN]" https://trapp.whitealbum.dk/api/v1/translations
 ```
 ### PHP
 
@@ -188,7 +188,7 @@ Creates a new translation of the given type and returns the id for the newly cre
 ###### Request
 
 ```
-curl -H "Authorization: Basic [Base64([USERNAME]:[SECRET])]" -X POST -d "locale=da-dk&title=My title&image=http://bonnier.imgix.net/ted-12-Dz6yqo0rVNdE8BQQjlKNYQ.png&content_type=article&publish_at=25-04-2015 15:15&created_at=26-04-2015 15:20&updated_at=27-04-2015 15:30&path=/path&active=true&content_url=http://mmm.dk/konkurrencer/vind-en-ted-bamse-to-billetter-til-ted-2" http://trapp.whitealbum.dk/api/v1/translations
+curl -H "Authorization: Basic [TOKEN]" -X POST -d "locale=da-dk&title=My title&image=http://bonnier.imgix.net/ted-12-Dz6yqo0rVNdE8BQQjlKNYQ.png&content_type=article&publish_at=25-04-2015 15:15&created_at=26-04-2015 15:20&updated_at=27-04-2015 15:30&path=/path&active=true&content_url=http://mmm.dk/konkurrencer/vind-en-ted-bamse-to-billetter-til-ted-2" http://trapp.whitealbum.dk/api/v1/translations
 ```
 ### PHP
 
@@ -222,7 +222,7 @@ Returns translation with matching id
 ###### Request
 
 ```
-curl -H "Authorization: Basic [Base64([USERNAME]:[SECRET])]" https://trapp.whitealbum.dk/api/v1/translations/55b8f5b2214f48da0900421f
+curl -H "Authorization: Basic [TOKEN]" https://trapp.whitealbum.dk/api/v1/translations/55b8f5b2214f48da0900421f
 ```
 
 ### PHP
@@ -335,7 +335,7 @@ Update item of type with the given id
 
 ###### Request
 ```
-curl -H "Authorization: Basic [Base64([USERNAME],[SECRET])]" -X POST -d "_method=PUT&title=My new title&description=My new description" https://trapp.whitealbum.dk/api/v1/translations/C36AF818BE94E41C1F2C52133BF85F33
+curl -H "Authorization: Basic [TOKEN]" -X POST -d "_method=PUT&title=My new title&description=My new description" https://trapp.whitealbum.dk/api/v1/translations/C36AF818BE94E41C1F2C52133BF85F33
 ```
 
 ### PHP
@@ -451,7 +451,7 @@ Delete translation with the matching id
 ###### Request
 
 ```
-curl -H "Authorization: Basic [Base64([USERNAME],[SECRET])]" -X POST -d "&_method=delete" https://trapp.whitealbum.dk/api/v1/translations/C36AF818BE94E41C1F2C52133BF85F33
+curl -H "Authorization: Basic [TOKEN]" -X POST -d "&_method=delete" https://trapp.whitealbum.dk/api/v1/translations/C36AF818BE94E41C1F2C52133BF85F33
 ```
 
 ### PHP
@@ -488,7 +488,7 @@ Get a list of states a translation can be in.
 ###### Request
 
 ```
-curl -H "Authorization: Basic [Base64([USERNAME]:[SECRET])]" -X POST -d "&_method=delete" https://trapp.whitealbum.dk/api/v1/translations/C36AF818BE94E41C1F2C52133BF85F33
+curl -H "Authorization: Basic [TOKEN]" -X POST -d "&_method=delete" https://trapp.whitealbum.dk/api/v1/translations/C36AF818BE94E41C1F2C52133BF85F33
 ```
 
 ### PHP
@@ -530,7 +530,7 @@ Get a list of states a translation can be in.
 ###### Request
 
 ```
-curl -H "Authorization: Basic [Base64([USERNAME]:[SECRET])]" -X POST -d "&_method=delete" https://trapp.whitealbum.dk/api/v1/translations/C36AF818BE94E41C1F2C52133BF85F33
+curl -H "Authorization: Basic [TOKEN]" -X POST -d "&_method=delete" https://trapp.whitealbum.dk/api/v1/translations/C36AF818BE94E41C1F2C52133BF85F33
 ```
 
 ### PHP
