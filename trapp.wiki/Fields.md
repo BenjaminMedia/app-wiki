@@ -12,7 +12,6 @@ In this section you can see what fields are supported and read more about them.
 |[state](#state)|string|false|
 |[do_callback](#do_callback)|boolean|false|
 |[update\_endpoint_uri](#update\_endpoint_uri)|string|false|
-|[app_name](#app_name)|string|false|
 -
 
 ### <a name="locale"></a> locale
