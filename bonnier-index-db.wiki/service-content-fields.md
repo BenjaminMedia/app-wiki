@@ -6,7 +6,7 @@ The API multiple types of items. Each type can have a different set of fields. I
 |---|---|---|
 |[locale](#content_locale)|string|true|
 |[title](#content_title)|string|true|
-|[description](#content_description)|text|false|
+|[description](#content_description)|string|false|
 |[content_type](#content_content_type)|string|true|
 |[image](#content_image)|string|false|
 |[publish_at](#content_publish_at)|datetime|false|
