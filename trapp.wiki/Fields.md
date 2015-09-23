@@ -7,10 +7,11 @@ In this section you can see what fields are supported and read more about them.
 |[translate_into](#translate_into)|array|true|
 |[deadline](#deadline)|datetime|true|
 |[fields](#fields)|object|true|
+|[title](#title)|string|true|
 |[comment](#comment)|string|false|
 |[state](#state)|string|false|
-|[title](#title)|string|true|
-
+|[do_callback](#do_callback)|boolean|false|
+|[update\_endpoint_uri](#update\_endpoint_uri)|string|false|
 -
 
 ### <a name="locale"></a> locale
@@ -21,6 +22,7 @@ string
 
 ###### Example
 da_dk
+
 en\_gb
 
 ###### Required
@@ -36,6 +38,7 @@ array
 
 ###### Example
 da_dk 
+
 en\_gb
 
 ###### Required
@@ -64,7 +67,7 @@ The object contains 3 required fields:
 
 - **label**: the name of the item. This value will be the one displayed for the translators.
 - **value**: the text that you want translated - should be in the same language as the locale field provided.
-- **displayformat**: wysiwyg for WYSIWYG editor, otherwise this can be ignored.
+- **displayformat**: text for text editor, otherwise this can be ignored.
 
 Any additional parameters provided will also be stored and will be displayed in the API.
 
@@ -72,7 +75,21 @@ Any additional parameters provided will also be stored and will be displayed in 
 object
 
 ###### Example
-{ "label": "Test", "value": "My text in the original language", "displayFormat": "wysiwyg" }
+{ "label": "Test", "value": "My text in the original language", "displayFormat": "text" }
+
+###### Required
+True
+
+-
+
+### <a name="title"></a> title
+Title in the original language of the content, will be displayed on lists
+
+###### Type
+string
+
+###### Example
+Science fiction bliver til virkelighed
 
 ###### Required
 True
@@ -96,6 +113,8 @@ False
 ### <a name="state"></a> state
 ID for the state which the content is currently in.
 
+To get a list of possible states see:
+
 ###### Type
 string
 
@@ -107,14 +126,31 @@ False
 
 -
 
-### <a name="title"></a> title
-Title in the original language of the content, will be displayed on lists
+
+### <a name="do_callback"></a> do_callback
+Sets whether a callback should be done when requested translation is completed.
+
+Setting this to true will require the [update\_endpoint_uri](#update\_endpoint_uri) parameter to be set.
+
+###### Type
+boolean
+
+###### Example
+true
+
+###### Required
+False
+
+-
+
+### <a name="update\_endpoint_uri"></a> update\_endpoint_uri
+URI used by the callback to deliver the ID of the completed translation.
 
 ###### Type
 string
 
 ###### Example
-Science fiction bliver til virkelighed
+http://www.example.com/translations-handler/
 
 ###### Required
-True
+False
