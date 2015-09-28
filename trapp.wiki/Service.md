@@ -40,17 +40,17 @@ In this section you can see what fields are supported.
 
 For a more detailed description please see: https://github.com/BenjaminMedia/app-wiki/blob/master/trapp.wiki/Fields.md
 
-|Name|Type|Required|
-|---|---|---|
-|locale|string|true|
-|translate_into|array|true|
-|deadline|datetime|true|
-|fields|object|true|
-|title|string|true|
-|state|string|false|
-|comment|string|false|
-|do_callback|boolean|false|
-|update\_endpoint_uri|string|false|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|locale|string|true||
+|translate_into|array|true||
+|deadline|datetime|true||
+|fields|object|true||
+|title|string|true||
+|state|string|false||
+|comment|string|false||
+|do_callback|boolean|false|When posting an update to a tranlsation; if an update_endpoint_uri has been provided in content creation then the update will always post the updated version of the content to the provided uri. If you do not want any callbacks to be made then you should set the do_callback to false when posting an update.|
+|[update\_endpoint_uri](#update_callback)|string|false|Provide a comlete uri to where you want updates to be pushed to, note that the uri is the same for all translated versions of one entity. Meaning if we hav an original article in danish that is being translated into swedish and norwegian. Then all these versions will send updates to the same uri.|
 
 ## <a name="/get/api/translations"></a> GET /api/v1/translations
 Returns a list of latest translations.
@@ -595,4 +595,97 @@ $response = json_decode(curl_exec($ch));
 	]
 }
 ```
-	
+## <a name="update_callback"></a> Update callback
+
+After Posting an update to a translation, a post request will be made to the update_endpoint_uri set on the entity.
+The system expects to recieve a repsonse with code 200 when a update has been succesfully recieved. If a request times out or fails, then the system will attempt to post again. A total of 3 attempts will be made before the update job is discarded. Below is an example of the request body that will be sent along with the request.
+
+#### Request body
+
+```json
+{
+   "_id":"55b8f5b2214f48da0900421f",
+   "application_id":1,
+   "publish_date":{
+      "date":"2015-07-05 21:29:34.000000",
+      "timezone_type":3,
+      "timezone":"UTC"
+   },
+   "update_endpoint_uri":"http://runolfsdottir.com/",
+   "language_id":"55b8f5b2214f48da090041b2",
+   "original_entity_id":null,
+   "updated_at":"2015-07-29 15:48:02",
+   "created_at":"2015-07-29 15:48:02",
+   "application":{
+      "id":1,
+      "display_name":"Translation",
+      "username":"Translation",
+      "site_code":"trapp",
+      "app_code":"trans",
+      "last_activity":"2015-07-29 15:43:18",
+      "created_at":"2015-07-17 11:47:14",
+      "updated_at":"2015-07-29 15:43:18",
+      "roles":[
+         {
+            "role":"application_index",
+            "app_id":1,
+            "created_at":"2015-07-17 12:40:52",
+            "updated_at":"2015-07-17 12:40:52"
+         },
+         {
+           	... // Removed for simplicity
+         }
+      ]
+   },
+   "revisions":[
+      {
+         "_id":"55b8f5b2214f48da09004220",
+         "revision_count":0,
+         "comment":"Autem odit laudantium corrupti ut. Aut aut dolor nam illum fuga. Dolorum et fugit aut. Nemo voluptas tenetur dolorem sed.",
+         "created_at":"2015-07-19 22:51:55",
+         "state_id":"55b8f5b2214f48da090041b8",
+         "user_id":"55b8f5b1214f48da090041af",
+         "entity_id":"55b8f5b2214f48da0900421f",
+         "updated_at":"2015-07-29 15:48:02",
+         "field_ids":[
+            "55b8f5b2214f48da09004221"
+         ],
+         "fields":[
+            {
+               "_id":"55b8f5b2214f48da09004221",
+               "label":"Miss",
+               "value":"Harum pariatur possimus ut itaque illum animi. Qui distinctio id deleniti provident quo. Et vel dolor sed et aspernatur reprehenderit et. Quia tenetur veritatis voluptates omnis.",
+               "display_format":"text",
+               "updated_at":"2015-07-29 15:48:02",
+               "created_at":"2015-07-29 15:48:02",
+               "revision_ids":[
+                  "55b8f5b2214f48da09004220"
+               ]
+            }
+         ],
+         "state":{
+            "_id":"55b8f5b2214f48da090041b8",
+            "name":"On Hold",
+            "description":"",
+            "state_order":0
+         },
+         "user":{
+            "_id":"55b8f5b1214f48da090041af",
+            "name":"Miss Shanie Ward",
+            "email":"paula.ullrich@gmail.com",
+            "updated_at":"2015-07-29 15:48:01",
+            "created_at":"2015-07-29 15:48:01"
+         }
+      },
+      {
+   			... // Removed for simplicity
+ 	  }
+   ],
+   "original":null,
+   "language":{
+      "_id":"55b8f5b2214f48da090041b2",
+      "name":"Danish",
+      "locale":"da_dk"
+   }
+}
+```
