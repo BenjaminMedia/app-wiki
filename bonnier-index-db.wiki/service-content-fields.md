@@ -17,6 +17,8 @@ The API multiple types of items. Each type can have a different set of fields. I
 |[active](#content_active)|boolean|true|
 |[parent_id](#content_parent_id)|guid|false|
 |[meta](#content_meta)|object|false|
+|[app_code](#app_code)|string|true|
+|[brand_code](#content_meta)|object|true|
 
 ### <a name="content_locale"></a> locale
 Locale code for the content.
@@ -28,7 +30,7 @@ string
 da_dk
 en\_gb
 
-###### Requred
+###### Required
 True
 
 -
@@ -42,7 +44,7 @@ string
 ###### Example
 Hello world!
 
-###### Requred
+###### Required
 True
 
 -
@@ -56,7 +58,7 @@ string
 ###### Example
 Hello world!
 
-###### Requred
+###### Required
 False
 
 -
@@ -71,7 +73,7 @@ string
 article
 page
 
-###### Requred
+###### Required
 True
 
 -
@@ -85,7 +87,7 @@ string
 ###### Example
 http://bonnier.imgix.net/cdn-connect/8a9649466f7e4bf4b4bf41ab48404021.jpg
 
-###### Requred
+###### Required
 True
 
 -
@@ -101,7 +103,7 @@ datetime (WC3)
 ###### Example
 2005-08-15T15:52:01+00:00
 
-###### Requred
+###### Required
 False
 
 -
@@ -117,7 +119,7 @@ datetime (WC3)
 ###### Example
 2005-08-15T15:52:01+00:00
 
-###### Requred
+###### Required
 True
 
 -
@@ -133,7 +135,7 @@ datetime (WC3)
 ###### Example
 2005-08-15T15:52:01+00:00
 
-###### Requred
+###### Required
 True
 
 -
@@ -147,7 +149,7 @@ string
 ###### Example
 http://www.example.com/my/custom/path
 
-###### Requred
+###### Required
 True
 
 -
@@ -163,7 +165,7 @@ string
 ###### Example
 /my/custom/path
 
-###### Requred
+###### Required
 False
 
 -
@@ -180,7 +182,7 @@ boolean
 true
 false
 
-###### Requred
+###### Required
 True
 
 -
@@ -194,7 +196,7 @@ string
 ###### Example
 5DD845435D7B8BF6E9CDD6094BC79CF3
 
-###### Requred
+###### Required
 True
 
 -
@@ -208,7 +210,7 @@ guid
 ###### Example
 5DD845435D7B8BF6E9CDD6094BC79CF3
 
-###### Requred
+###### Required
 False
 
 -
@@ -222,5 +224,33 @@ object
 ###### Example
 { "color": ["red", "blue", "green"] }
 
-###### Requred
+###### Required
 False
+
+-
+
+### <a name="brand_code"></a> brand_code
+String that describes the brand ownership of the content.
+
+###### Type
+string
+
+###### Example
+kom
+
+###### Required
+true
+
+-
+
+### <a name="app_code"></a> app_code
+String that describes the app ownership of the content.
+ 
+###### Type
+string
+
+###### Example
+fordelszonen
+
+###### Required
+true

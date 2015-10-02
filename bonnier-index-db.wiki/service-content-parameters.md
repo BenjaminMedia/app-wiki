@@ -11,7 +11,7 @@ https://github.com/BenjaminMedia/bonnier-index-db/wiki/Administration#developer_
 
 |Name|Description|
 |---|---|
-|[site_code](#parameter_site_code)|Returns result that matches specified site code|
+|[brand_code](#parameter_brand_code)|Returns result that matches specified brand code|
 |[app_code](#parameter_app_code)|Returns result that matches specified app code|
 |[filter](#parameter_filter)|Filter results by given field and value|
 |[meta](#parameter_meta)|Filter meta items by given value|
@@ -24,27 +24,29 @@ https://github.com/BenjaminMedia/bonnier-index-db/wiki/Administration#developer_
 
 -
 
-### <a name="parameter_site_code"></a> site_code
-Returns result that matches specified site code. 
+### <a name="parameter_brand_code"></a> brand_code
+Returns result that matches specified brand code. 
+String that describes the brand ownership of the content, Must match a value returned by the /api/v1/brandcode service. When creating content you must provide both a brand_code and a app_code, Your api credentials gives you access to specific combinations of app_codes and brand_codes, these can be fetched from the /api/v1/combination api.
 
 For multiple matches, please separate the value with ",".
 
 ###### Example
-site_code=cd_ark
+brand_code=kom
 
-site_code=ifo,ilvid
+brand_code=kom,dif
 
 -
 
 ### <a name="parameter_app_code"></a> app_code
 Returns result that matches specified app code. 
+String that describes the app ownership of the content, Must match a value returned by the /api/v1/appcode service. When creating content you must provide both a app_code and a brand_code, Your api credentials gives you access to specific combinations of app_codes and brand_codes, these can be fetched from the /api/v1/combination api.
 
 For multiple matches, please separate the value with ",".
 
 ###### Example
-app_code=ifo
+app_code=fordelszonen
 
-app_code=ifo,ilvid
+app_code=fordelszonen,arkiv
 
 -
 

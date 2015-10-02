@@ -1,24 +1,24 @@
-# api/content
+# api/v1/content
 
 Service for creating and retrieving content.
 
 |Action|Path|Example|Description|
 |---|---|---|---|
-|GET|[/api/content](#/get/api/content)|/api/content|Returns a list of latest items.|
-|POST|[/api/content](#/post/api/content)|/api/content|Create new item of type “content” and returns the id for the new item.|
-|GET|[/api/content/[id]](#/get/api/content/id)|/api/content/100|Returns matching id content with the matching id|
-|PUT|[/api/content/[id]](#/put/api/content/id)|/api/content/100|Update content with the matching id|
-|DELETE|[/api/content/[id]](#/delete/api/content/id)|/api/content/100|Delete content with the matching id|
+|GET|[/api/v1/content](#/get/api/content)|/api/v1/content|Returns a list of latest items.|
+|POST|[/api/v1/content](#/post/api/content)|/api/v1/content|Create new item of type “content” and returns the id for the new item.|
+|GET|[/api/v1/content/[id]](#/get/api/content/id)|/api/v1/content/100|Returns matching id content with the matching id|
+|PUT|[/api/v1/content/[id]](#/put/api/content/id)|/api/v1/content/100|Update content with the matching id|
+|DELETE|[/api/v1/content/[id]](#/delete/api/content/id)|/api/v1/content/100|Delete content with the matching id|
 
 ## Parameters
 
-https://github.com/BenjaminMedia/app-wiki/blob/master/bonnier-index-db.wiki/service-content-parameters.md
+[View parameters](service-content-parameters.md)
 
 ## Fields
 
-https://github.com/BenjaminMedia/app-wiki/blob/master/bonnier-index-db.wiki/service-content-fields.md
+[View fields](service-content-fields.md)
 
-## <a name="/get/api/content"></a> GET /api/content
+## <a name="/get/api/v1/content"></a> GET /api/v1/content
 Returns a list of latest items.
 
 ### CURL
