@@ -63,11 +63,14 @@ True
 ### <a name="fields"></a> fields
 Fields that you want translated.
 
-The object contains 3 required fields: 
+##### The object contains 3 required fields: 
 
 - **label**: the name of the item. This value will be the one displayed for the translators.
 - **value**: the text that you want translated - should be in the same language as the locale field provided.
-- **displayformat**: text for text editor, otherwise this can be ignored.
+- **display_format**: text for text editor, img for image - otherwise this can be ignored.
+
+##### Optional fields:
+- **max_length**: maximum length for the amount of characters that the translator can input in the field.
 
 Any additional parameters provided will also be stored and will be displayed in the API.
 
@@ -75,7 +78,14 @@ Any additional parameters provided will also be stored and will be displayed in 
 object
 
 ###### Example
-{ "label": "Test", "value": "My text in the original language", "displayFormat": "text" }
+```json
+{  
+   "label":"Test",
+   "value":"My text in the original language",
+   "display_format":"text",
+   "max_length":1000
+}
+```
 
 ###### Required
 True
