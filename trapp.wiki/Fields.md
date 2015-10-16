@@ -67,7 +67,7 @@ Fields that you want translated.
 
 - **label**: the name of the item. This value will be the one displayed for the translators.
 - **value**: the text that you want translated - should be in the same language as the locale field provided.
-- **display_format**: text for text editor, img for image - otherwise this can be ignored.
+- **display_format**: accepted values are text|image determines how the field will be displayed in trapp
 
 ##### Optional fields:
 - **max_length**: maximum length for the amount of characters that the translator can input in the field.
