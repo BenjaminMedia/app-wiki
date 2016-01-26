@@ -2,7 +2,9 @@
 
 Version 2 of the IndexSearch has taken a completely different approach in how we provide you with the extensive search functionality. 
 
-Instead of wrapping everything in a simple API, that abstracts logic away from the behind driving motor (ElasticSearch), we now give you more access and control. Increased flexibility that comes at the cost of extended complexity; since you now have to understand how to query ElasticSearch. An abstraction we think is acceptable since ElasticSearch is considerably more documentated and community driven then any abstractional API we can deliver.
+Instead of having a simplified API, that abstracts logic away from the behind driving motor (ElasticSearch), we now give you more access and control by allowing you to parse ElasticSearch queries directly through our API. 
+
+This provies you with an increase in flexibility but comes at the cost of extended complexity; since you now have to understand how to query ElasticSearch. However this is an abstraction that we think is acceptable due to ElasticSearch having a considerably more documentated and community driven understanding of their API, then we possibly can replicate through a wrapper.
 
 ##Creating content
 
@@ -20,11 +22,15 @@ Instead of wrapping everything in a simple API, that abstracts logic away from t
  	
  	`brand_code = [string]`
  	
- 	`locale = [string|'da_dk'|'sv_se'|'nb_no'|'fi_fi']`
+ 	`locale = [string|'da_dk'|'sv_se'|'nb_no'|'fi_fi'|'en_gb']`
  	
  	`title = [string]`
  	
+ 	`title_teaser = [string]`
+ 	
  	`description = [string]`
+ 	
+ 	`description_teaser = [string]`
  	
  	`image = [string|url]`
    
@@ -38,13 +44,13 @@ Instead of wrapping everything in a simple API, that abstracts logic away from t
  
    `categories = [array[strings]]`
    
-   `tags = [array[string]]`
+   `tags = [array[strings]]`
    
    `body = [string]`
    
    `meta = [object]`
 
-* **Example Data**
+* **Example JSON**
 
   ```javascript
   {
@@ -53,8 +59,10 @@ Instead of wrapping everything in a simple API, that abstracts logic away from t
     	"brand_code": "kom",
     	"content_type": "article",
     	"active" : true,
-    	"title": "en awesome test titeesel",
-    	"description": "en endnu mere awesome beskrivelse",
+    	"title": "en awesome title",
+    	"title_teaser": "en seo friendly teaser title",
+    	"description": "en awesome beskrivelse",
+    	"description_teaser": "en seo friendly teaser description"
     	"url": "http://bla.com/haha",
     	"image": "http://bla.com/haha.png",
     	"categories": [
@@ -93,115 +101,151 @@ Instead of wrapping everything in a simple API, that abstracts logic away from t
     ```
 
 * **Success Response:**
-  
-  <_What should the status code be on success and is there any returned data? This is useful when people need to to know what their callbacks should expect!_>
 
   * **Code:** 200 <br />
-    **Content:** `{ id : 12 }`
+    **Content:**
+    Return the posted content + an id.
+    
+	    ```
+	    { 
+	    	"id" : AVJ9J5_V3p6shXKj93sr
+	    	"locale": "da-DK",
+	    	"app_code": "fordelszonen",
+	    	"brand_code": "kom",
+	    	"content_type": "article",
+	    	...
+	    }
+	    ```
  
 * **Error Response:**
 
-  <_Most endpoints will have many ways they can fail. From unauthorized access, to wrongful parameters etc. All of those should be liste d here. It might seem repetitive, but it helps prevent assumptions from being made where they should be._>
-
   * **Code:** 401 UNAUTHORIZED <br />
-    **Content:** `{ error : "Log in" }`
+    **Content:** 
+    
+	    ```
+	    {
+		    "status": 401,
+		    "error": "You dont have the required permissions to <some action>"
+	    }
+	    ```
 
   OR
 
-  * **Code:** 422 UNPROCESSABLE ENTRY <br />
-    **Content:** `{ error : "Email Invalid" }`
+  * **Code:** 406 NOT ACCEPTABLE <br />
+    **Content:**
+        
+	    ```
+	    {
+		    "status": 406,
+		    "error":"JSON input error: quoted object property name expected"
+	    }
+	    ```
+	    OR
+	            
+	    ```
+	    {
+		  "messages": {
+		    "<some_field>": [
+		      "<some_error> on <some_field>"
+		    ]
+		  },
+		  "input": {
+		  		...(the input data)...
+		  }
+		}
+	    ```
 
 * **Sample Call:**
 
-``` php
-
-$clientSetup = [
-    'base_uri' => 'https://staging-indexdb.whitealbum.dk/api/v2/', // the enviroment yo are calling either staging or production
-    'curl' => [
-        CURLOPT_SSL_VERIFYHOST => 0, // needed to ignore ssl verification
-        CURLOPT_SSL_VERIFYPEER => 0 // needed to ignore ssl verification
-    ],
-    'auth' => [
-        'user', // insert your api user name
-        'key' // insert your api key
-    ],
-];
-
-$client new \GuzzleHttp\Client($clientSetup);
-
-$createContent = [
-    'locale' => 'da_dk',
-    'app_code' => 'fordelszonen',
-    'brand_code' => 'kom',
-    'active' => true,
-    'content_type' => 'article',
-    'title' => 'En flot test hest',
-    'description' => 'En flot description',
-    'url' => 'http://google.dk/test',
-    'image' => 'http://google.dk/image',
-    'categories' => [
-    		'Software', 'Computer', 'Objektiver'
-    ],
-    'tags' => [
-    		'Kvalitet', 'Seje', 'Billige'
-    ],
-    'meta' => [ 	
-    	'test' => [
-	    	'software med mere', 
-	    	'styresystemer', 
-	    	'seje objektiver'
+	The sample code here is made using a [Guzzle](https://github.com/guzzle/guzzle "Guzzle") http-client, we strongly suggest using this client.
+	
+	``` php
+	$clientSetup = [
+	    'base_uri' => 'https://staging-indexdb.whitealbum.dk/api/v2/', // requested url
+	    'curl' => [
+	        CURLOPT_SSL_VERIFYHOST => 0, // needed to ignore ssl verification
+	        CURLOPT_SSL_VERIFYPEER => 0 // needed to ignore ssl verification
 	    ],
-		'test_integer' => 1,
-	    'test_boolean' => true,
-	    'test_long' => 2.1,
-	    'test_float' => 2.1,
-	    'test_double' => 2.1,
-	    'test_byte' => 1,
-	    'test_date' => '2016-02-24',
-	    'test_object' => ['hest'=> 'test'],
-	    'test1_object' => [['hest'=> 'test'], ['hest'=> 'test1']],
-	    'test_ip' => '127.0.0.1',
-	    'test2_object' => [
-	        'text' => 'test text',
-	        'test_geo_point' => [
-	            'lat'=> 41.12,
-	            'lon'=> -71.34
-	        ]
+	    'auth' => [
+	        '<user>', // your api user name
+	        '<key>' // your api key
 	    ],
-	    'test_geo_point' =>  '41.12,-71.34'
-	]
-];
-
-try {
-    $request = $client->request('post', 'teaser');
-    
-} catch (\GuzzleHttp\Exception\RequestException $e) {
-
-    $errorCode = json_decode($e->getCode()); // for example you will get 406 when providing invalid input
-    $errorMsg = json_decode($e->getMessage(), true); // the error message will always be json_encoded therefore you should decode it
-}
-
-$response = $client->request('post', 'teaser', ['json' => $createContent]);
-
-if ($response->getStatusCode() === 201) { // should always return 201 on create 
-    $returnedContent = json_decode($response->getBody()->getContents(), true); // We should get the content the same content as posted, but now with a id present
-    
-       $id = $returnedContent['id']; // you should save this in your database as it is needed for updating|deleting the content
-}    
-
-```
-
-  <_Just a sample call to your endpoint in a runnable format ($.ajax call or a curl request) - this makes life easier and more predictable._> 
-
+	];
+	
+	$client new \GuzzleHttp\Client($clientSetup);
+	
+	$createContent = [
+	    'locale' => 'da_dk',
+	    'app_code' => 'fordelszonen',
+	    'brand_code' => 'kom',
+	    'active' => true,
+	    'content_type' => 'article',
+	    'title' => 'En flot test hest',
+	    'description' => 'En flot description',
+	    'url' => 'http://google.dk/test',
+	    'image' => 'http://google.dk/image',
+	    'categories' => [
+	    		'Software', 'Computer', 'Objektiver'
+	    ],
+	    'tags' => [
+	    		'Kvalitet', 'Seje', 'Billige'
+	    ],
+	    'meta' => [ 	
+	    	'test' => [
+		    	'software med mere', 
+		    	'styresystemer', 
+		    	'seje objektiver'
+		    ],
+			'test_integer' => 1,
+		    'test_boolean' => true,
+		    'test_long' => 2.1,
+		    'test_float' => 2.1,
+		    'test_double' => 2.1,
+		    'test_byte' => 1,
+		    'test_date' => '2016-02-24',
+		    'test_object' => ['hest'=> 'test'],
+		    'test1_object' => [['hest'=> 'test'], ['hest'=> 'test1']],
+		    'test_ip' => '127.0.0.1',
+		    'test2_object' => [
+		        'text' => 'test text',
+		        'test_geo_point' => [
+		            'lat'=> 41.12,
+		            'lon'=> -71.34
+		        ]
+		    ],
+		    'test_geo_point' =>  '41.12,-71.34'
+		]
+	];
+	
+	try {
+	    $request = $client->request('post', 'teaser'); 
+	} catch (\GuzzleHttp\Exception\RequestException $e) {
+		// Fetch error code of input
+	    $errorCode = json_decode($e->getCode());
+	    // Fetch json_encoded message, so decode it
+	    $errorMsg = json_decode($e->getResponse()->getBody()->getContents(), true);
+	}
+	
+	$response = $client->request('post', 'teaser', ['json' => $createContent]);
+	
+	// Create should return 201 when successful
+	if ($response->getStatusCode() === 201) {
+		 // Returns input content but now with an id  
+	    $returnedContent = json_decode($response->getBody()->getContents(), true); 
+	    
+	    // IMPORTANT
+	    // Save this in your database as you will need it for updating|deleting content
+	    $id = $returnedContent['id'];
+	}    
+	
+	```
 * **Notes:**
 
-  <_This is where all uncertainties, commentary, discussion etc. can go. I recommend timestamping and identifying oneself when leaving comments here._> 
-  
-###  
-  
+Notice that on creation we return the same content including an id. It is each individual (you) apps responsibility to keep track and store this id. The ID will not change and will be used for all future reference of that content.
   
 ##The Meta object
-The meta object is a special part of the content that allows you to define your own keys|names for content. Also you are allowed to put as many key:value combinations in it as you like. But you should only add the values that you actually need and not just throw your whole data model in there.
+
+The meta object is a special part of the content that allows you to define your own key-names for content. Also you are allowed to put as many key:value combinations in it as you like. But you should only add the values that you actually need and not just throw your whole data model in there.
 
 Data in meta is by default stored and indexed as whole strings, therefore when searching on meta values you will only be able to match on complete values, ie: not partials.
 
@@ -239,11 +283,11 @@ note ```_object``` is special and can be combined with the other types as seen i
 
 ##Updating single piece of content
 
-Updating is exactly the same as creating except we expect an ``` id ``` to be appended to the end of the url
+Updating is exactly the same as creating except we expect an `id` to be appended to the end of the url
 
 * **URL**
 
-  http://staging-indexdb.whitealbum.dk/api/v2/teaser/[insert id]
+  http://staging-indexdb.whitealbum.dk/api/v2/teaser/<insert-id>
 
 * **Method:**
 
@@ -251,14 +295,14 @@ Updating is exactly the same as creating except we expect an ``` id ``` to be ap
 
    **Required:** 
  	
- 	`locale = [string|'da_dk'|'sv_se'|'nb_no'|'fi_fi']`
+ 	`locale = [string|'da_dk'|'sv_se'|'nb_no'|'fi_fi'|'en_gb']`
 
    `content_type = [string|'article'|'car'|'review']`
    
 ##Bulking content
-Bulking is a functinality that allows you to create|update multiple sets of content in one api call. Bulking is considerably faster that creating a single record and should always be used over single record creation.
+Bulking is a functinality that allows you to create|update multiple sets of content in a single api call. It is considerably faster then creating a single record and it should always be used over single record creation.
 
-Note bulking uses exactly the same parameters as updating|creating content, with the exception that it expects an array of objects rather than a single object.
+Note: bulking uses exactly the same parameters as updating|creating content, with the exception that it expects an array of objects rather than a single object.
 
 * **URL**
 
@@ -318,8 +362,8 @@ http://staging-indexdb.whitealbum.dk/api/v2/teaser/_bulk
 	    "test_geo_point" :  "41.12,-71.34"    
 	}
   },
-    {
-    "id" : "AVJplG9TpBYEBTqOPVcE" // this content will be updated
+    { // this content will be updated
+    "id" : "AVJplG9TpBYEBTqOPVcE" 
 	"locale": "da-DK",
 	"app_code": "fordelszonen",
 	"brand_code": "kom",
@@ -377,9 +421,8 @@ http://staging-indexdb.whitealbum.dk/api/v2/teaser/_bulk
     ]
     ``` 
 	Status `200` means content was created, `201 means it updated existing content
+	
 * **Error Response:**
-
-  <_Most endpoints will have many ways they can fail. From unauthorized access, to wrongful parameters etc. All of those should be liste d here. It might seem repetitive, but it helps prevent assumptions from being made where they should be._>
 
   * **Code:** 401 UNAUTHORIZED <br />
     **Content:** `{ error : "Log in" }`
@@ -403,9 +446,14 @@ http://staging-indexdb.whitealbum.dk/api/v2/teaser/_bulk
 
 * **Notes:**
 
-	We suggest you dont bulk more that 32 MB's worth of data as this may impact results and perfomance, also you should set a high timeout value on your request when bulking. 
+	We suggest you dont bulk more than 32 MB worth of data at a time as this may impact results and perfomance; also you should set a high timeout value on your request when bulking, since creating/updating a lot of data is slow by nature. 
 	
 ##Query example
+Querying for data is considerably different from IS V1. In V2 you are now able to parse an ElasticSearch query to our API and have it ported directly into ElasticSearch. This will be the primary way of querying for data.
+
+This also means that you can use all the existing examples and documentation provided by ElasticSearch here [ElasticSearch Query] (https://www.elastic.co/guide/en/elasticsearch/reference/2.1/query-dsl.html).
+
+For starters we suggest looking at the example below, and you can always contact us with questions or to help build any query functionality.
 
 * **URL**
 
@@ -415,9 +463,9 @@ http://staging-indexdb.whitealbum.dk/api/v2/teaser/_bulk
 
 * **Data Params**
 
-   **Required:**
+  	**Required:**
  
-	`locale = [string|'da_dk'|'sv_se'|'nb_no'|'fi_fi']`
+	`locale = [string|'da_dk'|'sv_se'|'nb_no'|'fi_fi']|'en_gb'`
 	`body = [object]`
 
    **body params:**
@@ -428,7 +476,6 @@ http://staging-indexdb.whitealbum.dk/api/v2/teaser/_bulk
  	**example query:**
  	
  	``` javascript
- 
  {
    "locale":"da_dk",
    "body":{
@@ -477,6 +524,49 @@ http://staging-indexdb.whitealbum.dk/api/v2/teaser/_bulk
 	  		...
 	  	}
 	  ]
+	}
+	```
+	
+* **Error Response:**
+
+	Requesting with an incorrect query will return an error code 400. This error is generated by ElasticSearch and will return some information that might nessecarily not be useful for you, but potentially could help you in your search for the error.
+
+  * **Code:** 400 Bad Request <br />
+    **Content:** 
+    
+	``` javascript 
+	{
+  		"status": 400,
+		  "messages": {
+		    "root_cause": [
+		      {
+		        "type": "query_parsing_exception",
+		        "reason": "No query registered for [fs]",
+		        "index": "content_da_dk",
+		        "line": 1,
+		        "col": 20
+		      }
+		    ],
+		    "type": "search_phase_execution_exception",
+		    "reason": "all shards failed",
+		    "phase": "query",
+		    "grouped": true,
+		    "failed_shards": [
+		      {
+		        "shard": 0,
+		        "index": "content_da_dk",
+		        "node": "JUWvVMQNRDqd42_Svxxe7Q",
+		        "reason": {
+		          "type": "query_parsing_exception",
+		          "reason": "No query registered for [fs]",
+		          "index": "content_da_dk",
+		          "line": 1,
+		          "col": 20
+		        }
+		      }
+		    ]
+		  }
+		}
 	}
 	```
 
