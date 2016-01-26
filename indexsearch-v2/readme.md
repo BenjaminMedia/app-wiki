@@ -6,7 +6,21 @@ Instead of having a simplified API, that abstracts logic away from the behind dr
 
 This provies you with an increase in flexibility but comes at the cost of extended complexity; since you now have to understand how to query ElasticSearch. However this is an abstraction that we think is acceptable due to ElasticSearch having a considerably more documentated and community driven understanding of their API, then we possibly can replicate through a wrapper.
 
-##Creating content
+
+# Table of Contents
+  * [Creating Content](#create-content)
+  * [The Meta Object](#meta-object)
+  * [Update Single Content](#update-single)
+  * [Bulk Content](#bulk-content)
+  * [Query Examples] (#query-examples)
+  	* [Additional Query Examples] (#additional-query-examples)
+  		* [Pagination] (#query-example-pagination)
+  		* [Sorting] (#query-example-sorting)
+  		* [Boosting] (#query-example-boosting)
+  		* [Aggregation] (#query-example-aggregation)
+
+  
+##Creating content <a id="create-content"></a>
 
 * **URL**
 
@@ -53,51 +67,63 @@ This provies you with an increase in flexibility but comes at the cost of extend
 * **Example JSON**
 
   ```javascript
-  {
-    	"locale": "da-DK",
-    	"app_code": "fordelszonen",
-    	"brand_code": "kom",
-    	"content_type": "article",
-    	"active" : true,
-    	"title": "en awesome title",
-    	"title_teaser": "en seo friendly teaser title",
-    	"description": "en awesome beskrivelse",
-    	"description_teaser": "en seo friendly teaser description"
-    	"url": "http://bla.com/haha",
-    	"image": "http://bla.com/haha.png",
-    	"categories": [
-    		'Software', 'Computer', 'Objektiver'
-    	],
-    	"tags": [
-    		'Kvalitet', 'Seje', 'Billige'
-    	],
-    	"meta" : {
-    	    "test": [
-    	    	"software med mere", 
-    	    	"styresystemer", 
-    	    	"seje objektiver"
-    	    ],
-    	    "test_integer" : 1,
-    	    "test_boolean" : true,
-    	    "test_long" : 2.1,
-    	    "test_float" : 2.1,
-    	    "test_double" : 2.1,
-    	    "test_byte" : 1,
-    	    "test_date" : "2016-02-24",
-    	    "test_object" : {"hest": "test"},
-    	    "test1_object" : [{"hest": "test"}, {"hest": "test1"}],
-    	    "test_ip" : "127.0.0.1",
-    	    "test2_object" : {
-    	        "text" : "test text",
-    	        "test_geo_point" : {
-    	            "lat": 41.12,
-    	            "lon": -71.34
-    	        }
-    	    },
-    	    "test_geo_point" :  "41.12,-71.34"
-    	    
-    	}
-    }
+	{
+	   "locale":"da-DK",
+	   "app_code":"fordelszonen",
+	   "brand_code":"kom",
+	   "content_type":"article",
+	   "active":true,
+	   "title":"en awesome title",
+	   "title_teaser":"en seo friendly teaser title",
+	   "description":"en awesome beskrivelse",
+	   "description_teaser":"en seo friendly teaser description",
+	   "url":"http://bla.com/haha",
+	   "image":"http://bla.com/haha.png",
+	   "categories":[
+	      "Software",
+	      "Computer",
+	      "Objektiver"
+	   ],
+	   "tags":[
+	      "Kvalitet",
+	      "Seje",
+	      "Billige"
+	   ],
+	   "meta":{
+	      "test":[
+	         "software med mere",
+	         "styresystemer",
+	         "seje objektiver"
+	      ],
+	      "test_integer":1,
+	      "test_boolean":true,
+	      "test_long":2.1,
+	      "test_float":2.1,
+	      "test_double":2.1,
+	      "test_byte":1,
+	      "test_date":"2016-02-24",
+	      "test_object":{
+	         "hest":"test"
+	      },
+	      "test1_object":[
+	         {
+	            "hest":"test"
+	         },
+	         {
+	            "hest":"test1"
+	         }
+	      ],
+	      "test_ip":"127.0.0.1",
+	      "test2_object":{
+	         "text":"test text",
+	         "test_geo_point":{
+	            "lat":41.12,
+	            "lon":-71.34
+	         }
+	      },
+	      "test_geo_point":"41.12,-71.34"
+	   }
+	}
     ```
 
 * **Success Response:**
@@ -243,7 +269,7 @@ This provies you with an increase in flexibility but comes at the cost of extend
 
 Notice that on creation we return the same content including an id. It is each individual (you) apps responsibility to keep track and store this id. The ID will not change and will be used for all future reference of that content.
   
-##The Meta object
+##The Meta object <a id="meta-object"></a>
 
 The meta object is a special part of the content that allows you to define your own key-names for content. Also you are allowed to put as many key:value combinations in it as you like. But you should only add the values that you actually need and not just throw your whole data model in there.
 
@@ -281,7 +307,7 @@ note ```_object``` is special and can be combined with the other types as seen i
 }
 ```
 
-##Updating single piece of content
+##Updating single piece of content <a id="update-single-content"></a>
 
 Updating is exactly the same as creating except we expect an `id` to be appended to the end of the url
 
@@ -299,7 +325,7 @@ Updating is exactly the same as creating except we expect an `id` to be appended
 
    `content_type = [string|'article'|'car'|'review']`
    
-##Bulking content
+##Bulking content <a id="bulk-content"></a>
 Bulking is a functinality that allows you to create|update multiple sets of content in a single api call. It is considerably faster then creating a single record and it should always be used over single record creation.
 
 Note: bulking uses exactly the same parameters as updating|creating content, with the exception that it expects an array of objects rather than a single object.
@@ -318,95 +344,121 @@ http://staging-indexdb.whitealbum.dk/api/v2/teaser/_bulk
 
 * **Data Params**
 
-```javascript
-[
-  { // this content wil be created
-	"locale": "da-DK",
-	"app_code": "fordelszonen",
-	"brand_code": "kom",
-	"content_type": "article",
-	"active" : true,
-	"title": "en awesome test titeesel",
-	"description": "en endnu mere awesome beskrivelse",
-	"url": "http://bla.com/haha",
-	"image": "http://bla.com/haha.png",
-	"categories": [
-		'Software', 'Computer', 'Objektiver'
-	],
-	"tags": [
-		'Kvalitet', 'Seje', 'Billige'
-	],
-	"meta" : {
-	    "test": [
-	    	"software med mere", 
-	    	"styresystemer", 
-	    	"seje objektiver"
-	    ],
-	    "test_integer" : 1,
-	    "test_boolean" : true,
-	    "test_long" : 2.1,
-	    "test_float" : 2.1,
-	    "test_double" : 2.1,
-	    "test_byte" : 1,
-	    "test_date" : "2016-02-24",
-	    "test_object" : {"hest": "test"},
-	    "test1_object" : [{"hest": "test"}, {"hest": "test1"}],
-	    "test_ip" : "127.0.0.1",
-	    "test2_object" : {
-	        "text" : "test text",
-	        "test_geo_point" : {
-	            "lat": 41.12,
-	            "lon": -71.34
-	        }
-	    },
-	    "test_geo_point" :  "41.12,-71.34"    
-	}
-  },
-    { // this content will be updated
-    "id" : "AVJplG9TpBYEBTqOPVcE" 
-	"locale": "da-DK",
-	"app_code": "fordelszonen",
-	"brand_code": "kom",
-	"content_type": "article",
-	"active" : true,
-	"title": "en awesome test titeesel",
-	"description": "en endnu mere awesome beskrivelse",
-	"url": "http://bla.com/haha",
-	"image": "http://bla.com/haha.png",
-	"categories": [
-		'Software', 'Computer', 'Objektiver'
-	],
-	"tags": [
-		'Kvalitet', 'Seje', 'Billige'
-	],
-	"meta" : {
-	    "test": [
-	    	"software med mere", 
-	    	"styresystemer", 
-	    	"seje objektiver"
-	    ],
-	    "test_integer" : 1,
-	    "test_boolean" : true,
-	    "test_long" : 2.1,
-	    "test_float" : 2.1,
-	    "test_double" : 2.1,
-	    "test_byte" : 1,
-	    "test_date" : "2016-02-24",
-	    "test_object" : {"hest": "test"},
-	    "test1_object" : [{"hest": "test"}, {"hest": "test1"}],
-	    "test_ip" : "127.0.0.1",
-	    "test2_object" : {
-	        "text" : "test text",
-	        "test_geo_point" : {
-	            "lat": 41.12,
-	            "lon": -71.34
-	        }
-	    },
-	    "test_geo_point" :  "41.12,-71.34"    
-	}
-  }
-]
-```
+	```javascript
+	[
+	   {
+	      "locale":"da-DK",
+	      "app_code":"fordelszonen",
+	      "brand_code":"kom",
+	      "content_type":"article",
+	      "active":true,
+	      "title":"en awesome test titeesel",
+	      "description":"en endnu mere awesome beskrivelse",
+	      "url":"http://bla.com/haha",
+	      "image":"http://bla.com/haha.png",
+	      "categories":[
+	         "Software",
+	         "Computer",
+	         "Objektiver"
+	      ],
+	      "tags":[
+	         "Kvalitet",
+	         "Seje",
+	         "Billige"
+	      ],
+	      "meta":{
+	         "test":[
+	            "software med mere",
+	            "styresystemer",
+	            "seje objektiver"
+	         ],
+	         "test_integer":1,
+	         "test_boolean":true,
+	         "test_long":2.1,
+	         "test_float":2.1,
+	         "test_double":2.1,
+	         "test_byte":1,
+	         "test_date":"2016-02-24",
+	         "test_object":{
+	            "hest":"test"
+	         },
+	         "test1_object":[
+	            {
+	               "hest":"test"
+	            },
+	            {
+	               "hest":"test1"
+	            }
+	         ],
+	         "test_ip":"127.0.0.1",
+	         "test2_object":{
+	            "text":"test text",
+	            "test_geo_point":{
+	               "lat":41.12,
+	               "lon":-71.34
+	            }
+	         },
+	         "test_geo_point":"41.12,-71.34"
+	      }
+	   },
+	   {
+	      "id":"AVJplG9TpBYEBTqOPVcE",
+	      "locale":"da-DK",
+	      "app_code":"fordelszonen",
+	      "brand_code":"kom",
+	      "content_type":"article",
+	      "active":true,
+	      "title":"en awesome test titeesel",
+	      "description":"en endnu mere awesome beskrivelse",
+	      "url":"http://bla.com/haha",
+	      "image":"http://bla.com/haha.png",
+	      "categories":[
+	         "Software",
+	         "Computer",
+	         "Objektiver"
+	      ],
+	      "tags":[
+	         "Kvalitet",
+	         "Seje",
+	         "Billige"
+	      ],
+	      "meta":{
+	         "test":[
+	            "software med mere",
+	            "styresystemer",
+	            "seje objektiver"
+	         ],
+	         "test_integer":1,
+	         "test_boolean":true,
+	         "test_long":2.1,
+	         "test_float":2.1,
+	         "test_double":2.1,
+	         "test_byte":1,
+	         "test_date":"2016-02-24",
+	         "test_object":{
+	            "hest":"test"
+	         },
+	         "test1_object":[
+	            {
+	               "hest":"test"
+	            },
+	            {
+	               "hest":"test1"
+	            }
+	         ],
+	         "test_ip":"127.0.0.1",
+	         "test2_object":{
+	            "text":"test text",
+	            "test_geo_point":{
+	               "lat":41.12,
+	               "lon":-71.34
+	            }
+	         },
+	         "test_geo_point":"41.12,-71.34"
+	      }
+	   }
+	]
+	```
 
 * **Success Response:**
   
@@ -446,9 +498,9 @@ http://staging-indexdb.whitealbum.dk/api/v2/teaser/_bulk
 
 * **Notes:**
 
-	We suggest you dont bulk more than 32 MB worth of data at a time as this may impact results and perfomance; also you should set a high timeout value on your request when bulking, since creating/updating a lot of data is slow by nature. 
+	We suggest you don't bulk more than 32 MB worth of data at a time as this may impact results and perfomance; also you should set a high timeout value on your request when bulking, since creating/updating a lot of data is slow by nature. 
 	
-##Query example
+##Query example <a id="query-example"></a>
 Querying for data is considerably different from IS V1. In V2 you are now able to parse an ElasticSearch query to our API and have it ported directly into ElasticSearch. This will be the primary way of querying for data.
 
 This also means that you can use all the existing examples and documentation provided by ElasticSearch here [ElasticSearch Query] (https://www.elastic.co/guide/en/elasticsearch/reference/2.1/query-dsl.html).
@@ -475,36 +527,42 @@ For starters we suggest looking at the example below, and you can always contact
  	
  	**example query:**
  	
- 	``` javascript
- {
-   "locale":"da_dk",
-   "body":{
-      "size":5,
-      "query":{
-         "bool":{
-            "must": {
-                "multi_match": {
-                "query":    "moti",
-                "fields": [ "title.*" ],
-                "type":     "most_fields"
-                }
-            },
-            "filter":[
-                {
-                   "term":{
-                      "brand_code":"kom"
-                   }
-                },
-                {
-                   "term":{
-                      "app_code":"fordelszonen"
-                   }
-                },
-            ]
-         }
-      }
-  } 
- ```
+	``` javascript
+	{
+	   "locale":"da_dk",
+	   "body":{
+	      "size":5,
+	      "query":{
+	         "bool":{
+	            "must":{
+	               "multi_match":{
+	                  "query":"moti",
+	                  "fields":[
+	                     "title.*",
+	                     "description.*",
+	                     "categories.*",
+	                     "tags.*"
+	                  ],
+	                  "type":"most_fields"
+	               }
+	            },
+	            "filter":[
+	               {
+	                  "term":{
+	                     "brand_code":"kom"
+	                  }
+	               },
+	               {
+	                  "term":{
+	                     "app_code":"fordelszonen"
+	                  }
+	               }
+	            ]
+	         }
+	      }
+	   }
+	}
+	```
 
 
 * **Success Response:**
@@ -514,16 +572,16 @@ For starters we suggest looking at the example below, and you can always contact
     
 	``` javascript 
 	{
-	  "total": 3,
-	  "max_score": 0,
-	  "hits": [
-	  	{
-	  		"app_code" : "kom",
-	  		"brand_code" : "fordelszonen",
-	  		"title": "Simple Motions 2"
-	  		...
-	  	}
-	  ]
+	   "total":3,
+	   "max_score":0,
+	   "hits":[
+	      {
+	         "app_code":"kom",
+	         "brand_code":"fordelszonen",
+	         "title":"Simple Motions 2"
+	         ...
+	      }
+	   ]
 	}
 	```
 	
@@ -536,38 +594,242 @@ For starters we suggest looking at the example below, and you can always contact
     
 	``` javascript 
 	{
-  		"status": 400,
-		  "messages": {
-		    "root_cause": [
-		      {
-		        "type": "query_parsing_exception",
-		        "reason": "No query registered for [fs]",
-		        "index": "content_da_dk",
-		        "line": 1,
-		        "col": 20
-		      }
-		    ],
-		    "type": "search_phase_execution_exception",
-		    "reason": "all shards failed",
-		    "phase": "query",
-		    "grouped": true,
-		    "failed_shards": [
-		      {
-		        "shard": 0,
-		        "index": "content_da_dk",
-		        "node": "JUWvVMQNRDqd42_Svxxe7Q",
-		        "reason": {
-		          "type": "query_parsing_exception",
-		          "reason": "No query registered for [fs]",
-		          "index": "content_da_dk",
-		          "line": 1,
-		          "col": 20
-		        }
-		      }
-		    ]
-		  }
-		}
+	   "status":400,
+	   "messages":{
+	      "root_cause":[
+	         {
+	            "type":"query_parsing_exception",
+	            "reason":"No query registered for [fs]",
+	            "index":"content_da_dk",
+	            "line":1,
+	            "col":20
+	         }
+	      ],
+	      "type":"search_phase_execution_exception",
+	      "reason":"all shards failed",
+	      "phase":"query",
+	      "grouped":true,
+	      "failed_shards":[
+	         {
+	            "shard":0,
+	            "index":"content_da_dk",
+	            "node":"JUWvVMQNRDqd42_Svxxe7Q",
+	            "reason":{
+	               "type":"query_parsing_exception",
+	               "reason":"No query registered for [fs]",
+	               "index":"content_da_dk",
+	               "line":1,
+	               "col":20
+	            }
+	         }
+	      ]
+	   }
 	}
 	```
-
 * **Notes:**
+
+Please be adviced that when searching for data with an impartial string you can only get results when searching within the `title.*`, `description.*`, `tags.*` and `categories.*`. Doing full-text search in other then the mentioned fields will require an exact match of the exact string parsed. Meaning "Sea" will not match "I am searching", but will match "I am under the sea". 
+
+For title, description, tags and categories, it is also required that when doing fulltext search you append the field with `.*` to let the API know you are doing a fulltext search rather then an exact value query. This functionality is limited to the before specified fields only. 
+
+### Additional Query Examples: <a id="additional-query-example"></a>
+Below is a couple of examples on queries that will often be used.
+
+####Pagination: <a id="query-example-pagination"></a>
+Below query will fetch 50 items, starting from number 100, when specified app and brand code values.
+
+```
+{
+   "locale":"da_dk",
+   "body":{
+      "size":50,
+      "from":100,
+      "query":{
+         "bool":{
+            "filter":[
+               {
+                  "term":{
+                     "brand_code":"kom"
+                  }
+               },
+               {
+                  "term":{
+                     "app_code":"fordelszonen"
+                  }
+               }
+            ]
+         }
+      }
+   }
+}
+```
+
+####[Sorting](https://www.elastic.co/guide/en/elasticsearch/reference/1.4/search-request-sort.html): <a id="query-example-sorting"></a>
+Below query will fetch 50 items, starting from number 100, when specified app and brand code values.
+
+```
+{
+   "locale":"da_dk",
+   "sort":[
+      {
+         "title": { "order":"asc" }
+      }
+   ],
+   "body":{
+      "size":50,
+      "from":100,
+      "query":{
+         "bool":{
+            "filter":[
+               {
+                  "term":{
+                     "brand_code":"kom"
+                  }
+               },
+               {
+                  "term":{
+                     "app_code":"fordelszonen"
+                  }
+               }
+            ]
+         }
+      }
+   }
+}
+``` 
+
+####[Boosting](https://www.elastic.co/guide/en/elasticsearch/reference/2.1/query-dsl-query-string-query.html#_boosting): <a id="query-example-boosting"></a>
+Below query will search the content for moti and boost the "ranking" of those results which has moti in their title by 3 (notice: `"title.*^3"`), description by 2 ("description.*^2") and the rest by one.
+
+Meaning a if all of them contains the "moti" query, the title will give "3 points", description "2 points" and the rest "1 point". The data is then returned based on the average scoring of each document.
+
+The default boost value is 1, but can be any positive floating point number. Boosts between 0 and 1 reduce relevance.
+
+```
+{
+   "locale":"da_dk",
+   "body":{
+      "size":5,
+      "query":{
+         "bool":{
+            "must":{
+               "multi_match":{
+                  "query":"moti",
+                  "fields":[
+                     "title.*^3",
+                     "description.*^2",
+                     "categories.*",
+                     "tags.*"
+                  ],
+                  "type":"most_fields"
+               }
+            },
+            "filter":[
+               {
+                  "term":{
+                     "brand_code":"kom"
+                  }
+               },
+               {
+                  "term":{
+                     "app_code":"fordelszonen"
+                  }
+               }
+            ]
+         }
+      }
+   }
+}
+``` 
+####[Aggregations](https://www.elastic.co/guide/en/elasticsearch/reference/2.1/search-aggregations.html): <a id="query-example-aggregations"></a>
+Aggregations is one of the features that ElasticSearch allows us to do very nicely.
+
+Lets imagine we are creating an application that shows a list of cars. We want to be able to filter this list of cars by brand, model and series. If we pick a value in the brand dropdown, say brand A, then we want the other filters to adjust accordingly, so that the other dropdowns do not show values in which no car with brand A exists.
+
+This can be done with the following query
+
+```
+{
+   "locale":"da_dk",
+   "body":{
+      "query":{
+         "bool":{
+            "filter":[
+               {
+                  "term":{
+                     "brand_code":"car"
+                  }
+               },
+               {
+                  "term":{
+                     "app_code":"carapp"
+                  }
+               }
+            ]
+         }
+      },
+      "aggregations":{
+         "brands":{
+            "terms":{
+               "field":"meta.brand"
+            }
+         },
+         "models":{
+            "terms":{
+               "field":"meta.model"
+            }
+         },
+         "series":{
+            "terms":{
+               "field":"meta.series"
+            }
+         }
+      }
+   }
+}
+``` 
+
+Returns the following response
+
+```
+{
+  "total": 1,
+  "max_score": 9.260918,
+  "hits": [
+  		...
+  ],
+  "aggregations": {
+    "brands": [
+      {
+        "key": "BMW",
+        "doc_count": 7
+      },
+      {
+        "key": "Ferrari",
+        "doc_count": 15
+      },
+      {
+        "key": "Audi",
+        "doc_count": 23
+      }
+    ],
+    "models": [
+      {
+        "key": "A3",
+        "doc_count": 7
+      },
+      {
+        "key": "X6",
+        "doc_count": 9
+      }
+    ],
+    "series": [
+      {
+        "key": "Series 2",
+        "doc_count": 1
+      }
+    ]
+  }
+}
+``` 
+
