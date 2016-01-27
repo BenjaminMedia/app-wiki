@@ -670,12 +670,12 @@ Below query will fetch 50 items, starting from number 100, when specified app an
 ```
 {
    "locale":"da_dk",
-   "sort":[
-      {
-         "title": { "order":"asc" }
-      }
-   ],
    "body":{
+	   "sort":[
+	      {
+	         "title": { "order":"asc" }
+	      }
+	   ],
       "size":50,
       "from":100,
       "query":{
