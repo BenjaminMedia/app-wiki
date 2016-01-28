@@ -307,7 +307,7 @@ note ```_object``` is special and can be combined with the other types as seen i
 }
 ```
 
-##Updating single piece of content <a id="update-single-content"></a>
+##Updating single piece of content <a id="update-single"></a>
 
 Updating is exactly the same as creating except we expect an `id` to be appended to the end of the url
 
