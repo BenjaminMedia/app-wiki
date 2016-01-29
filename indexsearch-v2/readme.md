@@ -4,7 +4,7 @@ Version 2 of the IndexSearch has taken a completely different approach in how we
 
 Instead of having a simplified API, that abstracts logic away from the behind driving motor (ElasticSearch), we now give you more access and control by allowing you to parse ElasticSearch queries directly through our API. 
 
-This provies you with an increase in flexibility but comes at the cost of extended complexity; since you now have to understand how to query ElasticSearch. However this is an abstraction that we think is acceptable due to ElasticSearch having a considerably more documentated and community driven understanding of their API, then we possibly can replicate through a wrapper.
+This provies you with an increase in flexibility but comes at the cost of extended complexity; since you now have to understand how to query ElasticSearch. However this is an abstraction that we think is acceptable due to ElasticSearch having a considerably more documentated and community driven understanding of their API than we could possibly replicate in a wrapper.
 
 
 # Table of Contents
@@ -48,7 +48,7 @@ This provies you with an increase in flexibility but comes at the cost of extend
  	
  	`image = [string|url]`
    
-   `content_type = [string|'article'|'car'|'review']`
+   `content_type = [string|'article'|'car']`
    
    `url = [string|url]`
    
@@ -517,7 +517,8 @@ For starters we suggest looking at the example below, and you can always contact
 
   	**Required:**
  
-	`locale = [string|'da_dk'|'sv_se'|'nb_no'|'fi_fi']|'en_gb'`
+	`locale = [string|'da_dk'|'sv_se'|'nb_no'|'fi_fi'|'en_gb'`]
+	
 	`body = [object]`
 
    **body params:**
@@ -830,6 +831,61 @@ Returns the following response
       }
     ]
   }
+}
+```
+
+####[Search Request Fields](https://www.elastic.co/guide/en/elasticsearch/reference/2.1/search-request-fields.html): <a id="query-example-fields"></a>
+If you know you are only going to be using certain fields for the document you can ask to only have those returned. This can be done with the following query:
+
+```
+{
+   "locale":"da_dk",
+   "body":{
+      "fields" : ["title", "description", "image", "url"],
+      "query":{
+         "bool":{
+            "filter":[
+               {
+                  "term":{
+                     "brand_code":"car"
+                  }
+               },
+               {
+                  "term":{
+                     "app_code":"carapp"
+                  }
+               }
+            ]
+         }
+      }
+   }
+}
+``` 
+
+Returns the following response
+
+```
+{
+  "total": 2,
+  "max_score": 0,
+  "hits": [
+    {
+      "description": "Some description",
+      "image": "http://image.com/image.jpg",
+      "title": "Some Title",
+      "url": "http://some.url/here",
+      "id": "AVKDCR3M3p6shXKj93vw",
+      "score": 0
+    },
+    {
+      "description": "Some description",
+      "image": "http://image.com/image.jpg",
+      "title": "Some Title",
+      "url": "http://some.url/here",
+      "id": "FAKDCR3M3p6shXKj93vw",
+      "score": 0
+    }
+  ]
 }
 ``` 
 
