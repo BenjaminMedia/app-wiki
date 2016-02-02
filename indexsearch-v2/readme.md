@@ -317,7 +317,7 @@ Updating is exactly the same as creating except we expect an `id` to be appended
 
 * **Method:**
 
-   `POST`
+   `PUT`
 
    **Required:** 
  	
@@ -509,7 +509,7 @@ For starters we suggest looking at the example below, and you can always contact
 
 * **URL**
 
-	http://staging-indexdb.whitealbum.dk/api/v2/teaser/_bulk
+	http://staging-indexdb.whitealbum.dk/api/v2/teaser/_search
 
 * **Method:** `POST`
 
