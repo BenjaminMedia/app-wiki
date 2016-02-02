@@ -1,10 +1,16 @@
 ## Bonnier admin service
-This section describes how to use the `ServiceOAuth` class to authenticate users against the bonnier user login api. The service uses OAuth as its foundation, as such to use the service you will need to register your application at [Bonnier OAuth Admin](https://bonnier-admin.herokuapp.com/admin) (For backend applications only).
-You should contact developers at bonnier to get your application registered.
+This section describes how to use the `ServiceOAuth` class to authenticate users against the bonnier user login api. The service uses OAuth as its foundation.
 
-You have to register the domains and protocols that your application uses (note that you may only register domains and not subfolders), this is necessary in order for the admin api to be able to redirect back to your api after users have logged in. When your application has been registered you will receive an `app_id` and a `app_secret` these you will need in order to use the api.
+To use the the service you will need the to receive the following information from Bonnier, an `app_id` and a `app_secret` and finally a `api_enpoint` (The endpoint determines what user base you are authenticating against i.e. [frontend|backend] users).
 
-Below is an example implementation:
+Because OAuth only allows applications to authenticate users from known domains you must inform Bonnier employee's of the domains and protocols that your application will be using. Once Bonnier gets this information they will register your application and provide you with your credentials/endpoint needed for using the service.
+
+Example app domains:
+`http://myapp.dk` (Production), `http://staging-myapp.dk` (Staging), `http://local.myapp.dk` (Local development).
+
+To test the actual login you should ask Bonnier to provide you with at test `email` and `password` combination.
+
+Below is an example implementation using the `ServiceOAuth` class to authenticate WA backend users in your application:
 
 ``` php
 
@@ -42,3 +48,7 @@ else {
 
 
 ```
+
+---
+#### For Bonnier employee's (no need to read if you are an external developer)
+If you are an employee at Bonnier and need to register an application it can be done by going to [Bonnier OAuth Admin](https://bonnier-admin.herokuapp.com/admin) (For WA backend applications only).
