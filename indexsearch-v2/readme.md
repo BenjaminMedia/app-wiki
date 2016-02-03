@@ -18,6 +18,8 @@ This provies you with an increase in flexibility but comes at the cost of extend
   		* [Sorting] (#query-example-sorting)
   		* [Boosting] (#query-example-boosting)
   		* [Aggregation] (#query-example-aggregation)
+  		* [Search Request Fields] (#query-example-fields)
+  		* [And, Or, Not] (#query-example-fields)
 
   
 ##Creating content <a id="create-content"></a>
@@ -888,4 +890,90 @@ Returns the following response
   ]
 }
 ``` 
+
+####[Searching with And & Or](https://www.elastic.co/guide/en/elasticsearch/reference/current/compound-queries.html): <a id="query-example-and-or"></a>
+Given we want to find 'Cameras' and 'Printers' with the brand 'Canon' or 'Sony'.
+
+A query could be built like below that will query bool (true or false) on all documents and based on whether they have tags [Canon or Sony] AND categories [Camera or Printers].
+
+```
+{
+   "locale":"da_dk",
+   "body":{
+      "size":"10",
+      "from":0,
+      "query":{
+         "bool":{
+            "must":{
+               "and":[
+                  {
+                     "or":[
+                        {
+                           "match":{
+                              "tags":"Canon"
+                           }
+                        },
+                        {
+                           "match":{
+                              "tags":"Sony"
+                           }
+                        }
+                     ]
+                  },
+                  {
+                     "or":[
+                        {
+                           "match":{
+                              "categories":"Kamera"
+                           }
+                        },
+                        {
+                           "match":{
+                              "categories":"Printere"
+                           }
+                        }
+                     ]
+                  }
+               ]
+            },
+            "filter":[
+               {
+                  "term":{
+                     "app_code":"productsearch"
+                  }
+               }
+            ]
+         }
+      }
+   }
+}
+``` 
+
+Returns the following response
+
+```
+{
+  "total": 2,
+  "max_score": 0,
+  "hits": [
+    {
+      "description": "Some description",
+      "image": "http://image.com/image.jpg",
+      "title": "Some Title",
+      "url": "http://some.url/here",
+      "id": "AVKDCR3M3p6shXKj93vw",
+      "score": 0
+    },
+    {
+      "description": "Some description",
+      "image": "http://image.com/image.jpg",
+      "title": "Some Title",
+      "url": "http://some.url/here",
+      "id": "FAKDCR3M3p6shXKj93vw",
+      "score": 0
+    }
+  ]
+}
+``` 
+
 
