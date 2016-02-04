@@ -404,7 +404,7 @@ http://staging-indexdb.whitealbum.dk/api/v2/teaser/_bulk
 	      }
 	   },
 	   {
-	      "id":"AVJplG9TpBYEBTqOPVcE",
+	      "id":"BGJplG9TpBYEBTqOPVcE",
 	      "locale":"da-DK",
 	      "app_code":"fordelszonen",
 	      "brand_code":"kom",
@@ -470,11 +470,11 @@ http://staging-indexdb.whitealbum.dk/api/v2/teaser/_bulk
     
     ``` javacript 
     [
-    	{"id" : "BGJplG9TpBYEBTqOPVcE", "status": 200},
-    	{"id" : "AVJplG9TpBYEBTqOPVcE", "status": 201}
+    	{"id" : "AVJplG9TpBYEBTqOPVcE", "status": 201},
+    	{"id" : "BGJplG9TpBYEBTqOPVcE", "status": 200}
     ]
     ``` 
-	Status `200` means content was created, `201 means it updated existing content
+	Status `201` means content was created, `200` means it updated existing content
 	
 * **Error Response:**
 
