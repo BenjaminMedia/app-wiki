@@ -975,5 +975,99 @@ Returns the following response
   ]
 }
 ``` 
+  		
+##Understanding how we handle your data <a id="understanding-data"></a>
+
+When you put data into ElasticSearch we take that data and store it in a number of different ways. Each way allows for you to search a specific way, or opens up for a special feature.
+
+This section will go through how each of these different "mappings" will affect the ways in which you query for data.
+
+(***Notice***: an untouched version of your document will always be saved, it is this document that we return when you query. The fields mentioned below is only used for query and is added only to help specify and do more precise queries.)
+
+###Mapping Terms
+So, to not repeat ourselves we will first introduce the different types of mapping that is possible, and then show which fields are mapped accordingly.
+
+ 1. Lower Case
+	* Saves all data as a lowercase string
+	* Ex: 'Bob' -> 'bob'
+ 2. Boolean
+	* true/false
+	* Ex: 'True' -> 'true'
+ 3. Default Language
+	* ***Enables country-specific localized searching*** This will use a dictionary (different for each language) to save each word in its stem-form. You don't have to consider this when quering it, since your query will go through the same dictionary. So that if you search for 'flying kites' you will actually search for 'fly kite'.
+	* Ex: 'Peter loves flying kites' -> 'Peter love fly kite' 
+ 4. Autocomplete
+	* ***Enables autocompletion***. Data in this field is saved multiple times and split into parts of the word. We split it into the first 2 characters, 3 characters, up to 10 characters. That way you can query this field ex: 'com' and get 'computer' back.
+	* Ex: 'Computer Test' -> 'co', 'com', 'comp', ..., 'te', 'tes', 'test'.
+ 5. Trigram
+	* ***Enables query with spelling errors while still getting results.*** Data in this field is split into multiple small strings of 3  characters. This means that if you use this field to search for 'computer' you are actually searching for 'com', 'omp', 'mpu', etc. Meaning if you miss-spell 'kombuter' you are still going to get a match for 'computer' on 'ute', 'ter'. When quering like this matches are ordered by score (unless you override the sorting order) and the score can thus be used to filter out good relevance. Notice that the above query would also match 'ter' for 'terminal' and even 'router' as highly relevant since both 'ute' and 'ter' matches like it did with 'kombuter'. This should still be considered better then no results. (Consider showing a warning to users when the highest score gets too low, to inform that no exact matching content was found).  
+	* Ex: 'Computer Test' -> 'co', 'com', 'comp', ..., 'te', 'tes', 'test'.
+ 6. Raw
+	* ***Saves data exactly like it was input***. Data in this field is not manipulated. If you save 'Computer' or 'CoMpuTer' the data will be saved exactly like this. Be careful though, if you want to filter.
+	* Ex: 'ComPutEr' -> 'ComPutEr'.
+ 
+###The mappings
+It is important to note that each field can have multiple mappings. Ex. Title has a standard language mapping that is accessed through just 'title', but it also has a 'title.autocomplete', 'title.trigram', 'title.lowercase' and 'title.raw'.
+
+#### Model Mapping: Teaser
+
+| Field  					| Type | Mapping | Example |
+|:---						|:---:	|:---		|---|
+| **app_code**  				|string|lowercase|'Fordelszonen' -> 'fordelszonen'|
+| **brand_code** 				|string|lowercase|'Kom' -> 'kom'|
+| **active** 					|boolean|boolean|True -> true|
+| **content_type** 			|string|lowercase|'Article' -> 'article'|
+| **locale** 					|string|lowercase|'Da\_Dk' -> 'da\_dk'|
+| **title** 					|string|default language|'Watch Peter flying kites' -> 'watch peter fly kite'|
+| title.autocomplete 	|string|autocomplete |'Free cake' -> 'fr', 'fre', 'free', 'ca', 'cak', 'cake'|
+| title.trigram 			|string|trigram |'Cakes' -> 'cak', 'ake', 'kes'|
+| title.lowercase 		|string|lowercase|'Fruitcake' -> 'fruitcake'|
+| title.raw 				|string|raw|'CakE StoRm' -> 'CakE StoRm'|
+| **title\_teaser** 			|string|default language|'Watch Peter flying kites' -> 'watch peter fly kite'|
+| title\_teaser.autocomplete 	|string|autocomplete |'Free cake' -> 'fr', 'fre', 'free', 'ca', 'cak', 'cake'|
+| title\_teaser.trigram 			|string|trigram |'Cakes' -> 'cak', 'ake', 'kes'|
+| title\_teaser.lowercase 		|string|lowercase|'Fruitcake' -> 'fruitcake'|
+| title\_teaser.raw 				|string|raw|'CakE StoRm' -> 'CakE StoRm'|
+| **description** 		|string|default language|'Watch Peter flying kites' -> 'watch peter fly kite'|
+| **descripntion\_teaser** |string|default language|'Watch Peter flying kites' -> 'watch peter fly kite'|
+| **categories**			   |string|default language| ['Flying', 'birds', 'nature'] -> ['fly', 'bird', 'nature']|
+| categories.autocomplete 	|string|autocomplete|['Flying', 'birds', 'nature'] -> ['fl', 'fly', 'flyi', 'flyin', 'flying' 'bi', 'bir', 'bird', 'birds', 'na', 'nat', 'natu', 'natur', 'nature']|
+| categories.trigram 			|string|trigram|['Flying', 'birds', 'nature'] -> ['fly', 'lyi', 'yin', 'ing', 'bir', 'ird', 'nat', 'atu', 'tur', 'ure']|
+| categories.lowercase 		|string|lowercase|['Flying', 'birds', 'nature'] -> ['flying', 'birds', 'nature']|
+| categories.raw 				|string|raw|['Flying', 'birds', 'NaTure'] -> ['Flying', 'birds', 'NaTure']|
+| **tags**			   |string|default language| ['Flying', 'birds', 'nature'] -> ['fly', 'bird', 'nature']|
+| categories.autocomplete 	|string|autocomplete|['Flying', 'birds', 'nature'] -> ['fl', 'fly', 'flyi', 'flyin', 'flying' 'bi', 'bir', 'bird', 'birds', 'na', 'nat', 'natu', 'natur', 'nature']|
+| categories.trigram 			|string|trigram|['Flying', 'birds', 'nature'] -> ['fly', 'lyi', 'yin', 'ing', 'bir', 'ird', 'nat', 'atu', 'tur', 'ure']|
+| categories.lowercase 		|string|lowercase|['Flying', 'birds', 'nature'] -> ['flying', 'birds', 'nature']|
+| categories.raw 				|string|raw|['Flying', 'birds', 'NaTure'] -> ['Flying', 'birds', 'NaTure']|
+| **body** |string|default language|'Here we are watching peter flying with kites' -> 'here watch peter fly kite'|
+| **url** |string|url|www.url.com -> http://www.url.com|
+| **image** |string|not_analyzed|http://www.UrL.com -> http://www.UrL.com|
+| **published\_at** |string|date|'08-02-2016'->'08-02-2016'|
+| published\_at.raw |string|not_analyzed|'08-02-2016'->'08-02-2016'|
+| **updated\_at** |string|date|'08-02-2016'->'08-02-2016'|
+| updated\_at.raw |string|not_analyzed|'08-02-2016'->'08-02-2016'|
+| **meta** |object|dynamic|Read more below in dynamic meta mapping|
+
+#### Dynamic Meta Mapping
+
+To further understand the meta object make sure to read the section about [The Meta Object](#meta-object)
+
+| Field  					| Type | Example |
+|:---						|:---:|---|
+| **\*[your\_field]**	|not\_analyzed|'ExamPle' -> 'ExamPle'|
+| *[your\_field].lowercase				|lowercase|'ExamPle' -> 'example'|
+| **\*\_date** 			|date|'Kom' -> '08-02-2016'->'08-02-2016'|
+| **\*\_boolean** 		|boolean|True -> true|
+| **\*\_long** 			|long|2147483647 -> 2147483647 |
+| **\*\_integer**  		|integer|32767 -> 32767 |
+| **\*\_byte** 			|byte|01011010 -> 01011010|
+| **\*\_double** 			|double|2.2250738585072020×10−308 -> 2.2250738585072020×10−308|
+| **\*\_float** 			|float|2.2424242 -> 2.2424242|
+| **\*\_binary** 			|binary|010100010 -> 010100010 |
+| **\*\_object** 			|object|{my\_field: 'Some Field Content'} -> {my\_field: 'Some Field Content'}|
+| **\*\_ip** 				|ip|127.0.0.1 -> 127.0.0.1|
+| **\*\_geo_point** 		|geo\_point|{'lat': 41.12, 'lon': -71.34}|
+| **\*\_token_count** 		|token\_count|'Something' -> 9|
 
 
