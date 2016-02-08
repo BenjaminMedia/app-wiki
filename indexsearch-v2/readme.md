@@ -1067,7 +1067,7 @@ To further understand the meta object make sure to read the section about [The M
 | **\*\_binary** 			|binary|010100010 -> 010100010 |
 | **\*\_object** 			|object|{my\_field: 'Some Field Content'} -> {my\_field: 'Some Field Content'}|
 | **\*\_ip** 				|ip|127.0.0.1 -> 127.0.0.1|
-| **\*\_geo_point** 		|geo\_point|{'lat': 41.12, 'lon': -71.34}|
+| **\*\_geo_point** 		|geo\_point|{'lat': 41.12, 'lon': -71.34} -> {'lat': 41.12, 'lon': -71.34}|
 | **\*\_token_count** 		|token\_count|'Something' -> 9|
 
 
