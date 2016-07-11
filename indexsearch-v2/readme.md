@@ -20,6 +20,7 @@ This provies you with an increase in flexibility but comes at the cost of extend
   		* [Aggregation] (#query-example-aggregation)
   		* [Search Request Fields] (#query-example-fields)
   		* [And, Or, Not] (#query-example-fields)
+  		* [Suggesting] (#query-example-suggesting)
 
   
 ##Creating content <a id="create-content"></a>
@@ -948,31 +949,62 @@ A query could be built like below that will query bool (true or false) on all do
    }
 }
 ``` 
+####[Suggesting](https://www.elastic.co/guide/en/elasticsearch/reference/current/suggester-context.html): <a id="query-example-suggesting"></a>
+Below query we ask IS for suggestions to a search for the text "Suk". 
+
+Notice that we have to add a context here. Contexts are available based on a combined app_code and brand_code. You cannot ask for suggestions across all content in IS.
+
+```
+{
+    "locale":"da_dk",
+    "body":{
+        "size":"0",
+        "suggest":{
+            "text":"Suk",
+            "ingredients":{
+                "completion":{
+                    "field":"categories.suggest",
+                    "fuzzy":{
+                        "unicode_aware":true
+                    },
+                    "context":{
+                        "app_code":"site",
+                        "brand_code":"meal"
+                    }
+                }
+            }
+        }
+    }
+}
+``` 
 
 Returns the following response
 
 ```
 {
-  "total": 2,
+  "total": 526,
   "max_score": 0,
-  "hits": [
-    {
-      "description": "Some description",
-      "image": "http://image.com/image.jpg",
-      "title": "Some Title",
-      "url": "http://some.url/here",
-      "id": "AVKDCR3M3p6shXKj93vw",
-      "score": 0
-    },
-    {
-      "description": "Some description",
-      "image": "http://image.com/image.jpg",
-      "title": "Some Title",
-      "url": "http://some.url/here",
-      "id": "FAKDCR3M3p6shXKj93vw",
-      "score": 0
-    }
-  ]
+  "hits": [],
+  "suggest": {
+    "ingredients": [
+      {
+        "text": "Suk",
+        "offset": 0,
+        "length": 3,
+        "options": [
+          {
+            "text": "Sukker",
+            "score": 41
+          },
+          {
+            "text": "Skyr",
+            "score": 10
+          },
+			...
+        ]
+      }
+    ]
+  }
 }
 ``` 
   		
