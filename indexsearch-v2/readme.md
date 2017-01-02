@@ -1,4 +1,4 @@
-# THIS DOCUMENT HAS BEEN DEPRECATED PLEASE LOOK HERE: [GITHUB](https://github.com/BenjaminMedia/bonnier-index-search/wiki)
+# THIS DOCUMENT HAS BEEN DEPRECATED PLEASE LOOK HERE: [GITHUB](http://services.interactives.dk/preview/index-search/)
 
 Version 2 of the IndexSearch has taken a completely different approach in how we provide you with the extensive search functionality. 
 
